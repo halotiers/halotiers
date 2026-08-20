@@ -1,1421 +1,2059 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Halo Tiers Network</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<title>Halo Tiers Network</title>
 
-  <style>
-    :root {
-      --bg: #07080b;
-      --bg-2: #0b0d11;
-      --panel: #0d1015;
-      --card: #11141a;
-      --card-hover: #171b23;
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-      --border: rgba(255,255,255,.055);
-      --border-hover: rgba(255,255,255,.13);
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-      --text: #f5f7fa;
-      --muted: #737b89;
-      --muted-2: #4d5562;
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap"
+rel="stylesheet">
 
-      --accent: #a855f7;
-      --accent-soft: rgba(168,85,247,.12);
-      --accent-glow: rgba(168,85,247,.2);
+<style>
 
-      --t1: #f5b83d;
-      --t2: #aeb7c5;
-      --t3: #d88322;
-      --t4: #43b9ee;
-      --t5: #b878ee;
-    }
+:root {
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-    }
+    --bg: #0c1219;
+    --bg-dark: #090e14;
+    --panel: #111821;
+    --panel-2: #151e28;
 
-    html {
-      background: var(--bg);
-    }
+    --border: #202b37;
+    --border-light: #263442;
 
-    body {
-      min-height: 100vh;
-      background:
-        radial-gradient(circle at 50% -15%, rgba(168,85,247,.09), transparent 35%),
-        linear-gradient(180deg, #07080b 0%, #050609 100%);
-      color: var(--text);
-      padding-bottom: 80px;
-    }
+    --text: #f1f5f9;
+    --muted: #697789;
 
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background-image:
-        linear-gradient(rgba(255,255,255,.012) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.012) 1px, transparent 1px);
-      background-size: 40px 40px;
-      mask-image: linear-gradient(to bottom, black, transparent 70%);
-      z-index: -1;
-    }
+    --accent: #ffffff;
 
-    .pixelated {
-      image-rendering: pixelated;
-      image-rendering: crisp-edges;
-    }
+    --t1: #ffc72c;
+    --t2: #aeb8c4;
+    --t3: #c46c26;
+    --t4: #62b7eb;
+    --t5: #a978d0;
 
-    /* =========================
-       NAVBAR
-    ========================= */
+}
 
-    .nav-bar {
-      width: 100%;
-      height: 70px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(7,8,11,.86);
-      backdrop-filter: blur(18px);
-      border-bottom: 1px solid var(--border);
-    }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
 
-    .nav-container {
-      width: min(1320px, calc(100% - 36px));
-      height: 100%;
-      margin: auto;
+body {
 
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 30px;
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at 50% -20%,
+            rgba(93,65,130,.13),
+            transparent 45%
+        ),
+        #0b1118;
+
+    color: var(--text);
+
+    padding-bottom: 80px;
+}
+
+
+/* =========================================================
+   TOP NAVIGATION
+========================================================= */
+
+.nav-wrapper {
+
+    width: 100%;
+
+    padding-top: 30px;
+}
+
+.navbar {
+
+    width: min(1315px, calc(100% - 40px));
+
+    height: 62px;
+
+    margin: auto;
+
+    background: #121922;
+
+    border: 1px solid #1d2935;
+
+    border-radius: 15px;
+
+    display: flex;
+
+    align-items: center;
+
+    padding: 0 16px;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.18);
+
+}
+
+
+/* LOGO */
+
+.brand {
+
+    display: flex;
+
+    align-items: center;
+
+    width: 270px;
+
+    text-decoration: none;
+}
+
+.brand-logo {
+
+    width: 155px;
+
+    height: auto;
+
+    object-fit: contain;
+}
+
+.brand-name {
+    display: none;
+}
+
+
+/* NAV */
+
+.main-nav {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 26px;
+
+    flex: 1;
+
+    height: 100%;
+}
+
+.main-nav a {
+
+    height: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    color: #687487;
+
+    text-decoration: none;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    transition: .15s;
+}
+
+.main-nav a:hover {
+    color: white;
+}
+
+.main-nav a.active {
+    color: white;
+}
+
+.main-nav i {
+    font-size: 18px;
+}
+
+
+/* SEARCH */
+
+.nav-search {
+
+    width: 220px;
+
+    height: 38px;
+
+    border-radius: 22px;
+
+    background: #192330;
+
+    border: 1px solid #202d3a;
+
+    display: flex;
+
+    align-items: center;
+
+    padding: 0 13px;
+
+    gap: 9px;
+
+    color: #647386;
+}
+
+.nav-search input {
+
+    width: 100%;
+
+    border: none;
+
+    outline: none;
+
+    background: transparent;
+
+    color: white;
+
+    font-size: 12px;
+}
+
+.nav-search input::placeholder {
+    color: #647386;
+}
+
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+.page {
+
+    width: min(1315px, calc(100% - 40px));
+
+    margin: 50px auto 0;
+}
+
+
+/* =========================================================
+   MODE TABS
+========================================================= */
+
+.mode-tabs {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(10, 1fr);
+
+    height: 76px;
+}
+
+.mode-tab {
+
+    position: relative;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 6px;
+
+    background: #0e151d;
+
+    border: 1px solid #1b2733;
+
+    border-bottom: none;
+
+    color: #667487;
+
+    cursor: pointer;
+
+    transition: .15s;
+
+    font-size: 13px;
+
+    font-weight: 800;
+}
+
+.mode-tab:first-child {
+    border-radius: 22px 22px 0 0;
+}
+
+.mode-tab:last-child {
+    border-radius: 0 22px 0 0;
+}
+
+.mode-tab img {
+
+    width: 28px;
+
+    height: 28px;
+
+    object-fit: contain;
+}
+
+.mode-tab i {
+    font-size: 27px;
+}
+
+.mode-tab:hover {
+    color: white;
+    background: #121b25;
+}
+
+.mode-tab.active {
+
+    color: white;
+
+    background: #121b24;
+
+    border-bottom: 3px solid white;
+}
+
+.mode-tab.active::after {
+
+    content: "";
+
+    position: absolute;
+
+    bottom: -1px;
+
+    left: 8px;
+
+    right: 8px;
+
+    height: 2px;
+
+    background: white;
+}
+
+
+/* =========================================================
+   LEADERBOARD
+========================================================= */
+
+.leaderboard {
+
+    background: #111821;
+
+    border: 1px solid #202b37;
+
+    border-radius: 0 14px 14px 14px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,.15);
+}
+
+
+/* =========================================================
+   TOP INFO
+========================================================= */
+
+.info-bar {
+
+    height: 67px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    padding: 0 20px;
+
+    border-bottom: 1px solid #1d2833;
+}
+
+.info-button {
+
+    height: 35px;
+
+    padding: 0 13px;
+
+    border-radius: 8px;
+
+    background: #202b37;
+
+    color: white;
+
+    border: none;
+
+    font-weight: 800;
+
+    font-size: 12px;
+}
+
+.server-label {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 3px;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    color: #748195;
+}
+
+.server-ip {
+
+    height: 32px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 0 9px;
+
+    border-radius: 7px;
+
+    background: #1b2632;
+
+    color: #9caabd;
+
+    font-size: 11px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   TABLE HEADER
+========================================================= */
+
+.table-header {
+
+    height: 72px;
+
+    display: grid;
+
+    grid-template-columns:
+        150px
+        1fr
+        80px
+        390px;
+
+    align-items: center;
+
+    padding: 0 20px;
+
+    color: #536174;
+
+    font-size: 11px;
+
+    font-weight: 900;
+
+    text-transform: uppercase;
+}
+
+.table-header div:nth-child(1) {
+    padding-left: 14px;
+}
+
+
+/* =========================================================
+   PLAYER ROW
+========================================================= */
+
+.player-row {
+
+    position: relative;
+
+    height: 80px;
+
+    margin: 0 12px 9px;
+
+    display: grid;
+
+    grid-template-columns:
+        150px
+        1fr
+        80px
+        390px;
+
+    align-items: center;
+
+    background: #151e28;
+
+    border: 1px solid #202c38;
+
+    border-radius: 13px;
+
+    overflow: hidden;
+
+    transition: .15s;
+}
+
+.player-row:hover {
+
+    background: #19232e;
+
+    border-color: #2b3a49;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   RANK SECTION
+========================================================= */
+
+.rank-section {
+
+    position: relative;
+
+    height: 100%;
+
+    overflow: visible;
+
+    display: flex;
+
+    align-items: center;
+
+    padding-left: 13px;
+}
+
+
+/* diagonal shape */
+
+.rank-section::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+
+    bottom: 0;
+
+    left: 0;
+
+    width: 155px;
+
+    background: #202b37;
+
+    clip-path: polygon(
+        0 0,
+        78% 0,
+        100% 50%,
+        78% 100%,
+        0 100%
+    );
+}
+
+
+/* TOP THREE */
+
+.rank-1 .rank-section::before {
+    background: #f5bd32;
+}
+
+.rank-2 .rank-section::before {
+    background: #aab6c1;
+}
+
+.rank-3 .rank-section::before {
+    background: #c46b25;
+}
+
+
+/* RANK NUMBER */
+
+.rank-number {
+
+    position: relative;
+
+    z-index: 5;
+
+    font-size: 34px;
+
+    font-weight: 900;
+
+    font-style: italic;
+
+    color: white;
+
+    width: 62px;
+
+    text-align: center;
+
+    text-shadow: 0 2px 4px rgba(0,0,0,.25);
+}
+
+
+/* =========================================================
+   CHARACTER
+========================================================= */
+
+.character {
+
+    position: absolute;
+
+    z-index: 10;
+
+    left: 63px;
+
+    bottom: -7px;
+
+    height: 91px;
+
+    width: auto;
+
+    image-rendering: pixelated;
+
+    object-fit: contain;
+
+    filter:
+        drop-shadow(
+            0 4px 4px rgba(0,0,0,.35)
+        );
+}
+
+
+/* =========================================================
+   PLAYER INFORMATION
+========================================================= */
+
+.player-information {
+
+    padding-left: 3px;
+
+    min-width: 0;
+}
+
+.player-name {
+
+    font-size: 20px;
+
+    font-weight: 900;
+
+    color: #dbe5f2;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+.player-subtitle {
+
+    margin-top: 4px;
+
+    font-size: 14px;
+
+    color: #7293b5;
+
+    font-weight: 500;
+}
+
+.player-subtitle span {
+    color: #496783;
+}
+
+
+/* =========================================================
+   REGION
+========================================================= */
+
+.region {
+
+    width: 48px;
+
+    height: 40px;
+
+    border-radius: 8px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 14px;
+
+    font-weight: 900;
+}
+
+.region.NA {
+
+    color: #ed5964;
+
+    background: rgba(220,70,80,.2);
+}
+
+.region.EU {
+
+    color: #55dc69;
+
+    background: rgba(50,190,70,.2);
+}
+
+.region.AS {
+
+    color: #62a9ff;
+
+    background: rgba(60,130,240,.18);
+}
+
+
+/* =========================================================
+   TIERS
+========================================================= */
+
+.tiers {
+
+    height: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-start;
+
+    gap: 8px;
+
+    padding-right: 10px;
+}
+
+.tier-item {
+
+    width: 42px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 4px;
+}
+
+.tier-icon {
+
+    width: 32px;
+
+    height: 32px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #0c1219;
+
+    border: 2px solid #263442;
+
+    box-shadow:
+        0 2px 5px rgba(0,0,0,.3);
+}
+
+.tier-icon img {
+
+    width: 20px;
+
+    height: 20px;
+
+    object-fit: contain;
+}
+
+.tier-name {
+
+    font-size: 11px;
+
+    font-weight: 900;
+
+    color: #9ba8b7;
+}
+
+
+/* TIER COLORS */
+
+.tier-ht1 .tier-name {
+    color: #ffc72c;
+}
+
+.tier-lt1 .tier-name {
+    color: #aeb8c4;
+}
+
+.tier-ht2 .tier-name {
+    color: #61b9ed;
+}
+
+.tier-lt2 .tier-name {
+    color: #8795a6;
+}
+
+.tier-ht3 .tier-name {
+    color: #d68a3a;
+}
+
+
+/* =========================================================
+   EMPTY
+========================================================= */
+
+.empty-state {
+
+    padding: 60px;
+
+    text-align: center;
+
+    color: #556274;
+
+    font-size: 13px;
+
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+.search-overlay {
+
+    position: absolute;
+
+    right: 30px;
+
+    top: 30px;
+
+    width: 240px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1100px) {
+
+    .main-nav {
+        gap: 12px;
     }
 
     .brand {
-      display: flex;
-      align-items: center;
-      gap: 11px;
-      text-decoration: none;
-      flex-shrink: 0;
+        width: 180px;
     }
 
     .brand-logo {
-      width: 38px;
-      height: 38px;
-      border-radius: 9px;
-      object-fit: cover;
-      border: 1px solid rgba(255,255,255,.1);
-      box-shadow: 0 0 22px var(--accent-glow);
+        width: 130px;
     }
 
-    .brand-name {
-      color: #fff;
-      font-size: 14px;
-      font-weight: 900;
-      letter-spacing: -.3px;
+    .nav-search {
+        width: 170px;
     }
 
-    .nav-menu {
-      display: flex;
-      align-items: center;
-      gap: 3px;
-      height: 100%;
-      overflow-x: auto;
-      scrollbar-width: none;
+    .table-header,
+    .player-row {
+
+        grid-template-columns:
+            120px
+            1fr
+            65px
+            300px;
     }
 
-    .nav-menu::-webkit-scrollbar {
-      display: none;
+    .tiers {
+        gap: 3px;
     }
 
-    .nav-btn {
-      position: relative;
-      height: 38px;
-      padding: 0 11px;
-
-      display: flex;
-      align-items: center;
-      gap: 7px;
-
-      background: transparent;
-      border: 1px solid transparent;
-      border-radius: 7px;
-
-      color: #737b88;
-      font-size: 10px;
-      font-weight: 900;
-      letter-spacing: .45px;
-
-      cursor: pointer;
-      white-space: nowrap;
-      transition: .18s ease;
+    .tier-item {
+        width: 34px;
     }
 
-    .nav-btn img {
-      width: 17px;
-      height: 17px;
-      object-fit: contain;
+}
+
+
+@media(max-width:800px) {
+
+    .navbar {
+        height: auto;
+        padding: 12px;
+        flex-wrap: wrap;
+        gap: 10px;
     }
 
-    .nav-btn:hover {
-      color: #dfe3e8;
-      background: rgba(255,255,255,.025);
+    .brand {
+        width: auto;
     }
 
-    .nav-btn.active {
-      color: #fff;
-      background: #11141a;
-      border-color: rgba(255,255,255,.08);
-      box-shadow:
-        inset 0 0 0 1px rgba(255,255,255,.015),
-        0 4px 18px rgba(0,0,0,.25);
+    .main-nav {
+        order: 3;
+        width: 100%;
+        overflow-x: auto;
     }
 
-    .nav-btn.active::after {
-      content: "";
-      position: absolute;
-      left: 12px;
-      right: 12px;
-      bottom: -1px;
-      height: 2px;
-      background: var(--accent);
-      box-shadow: 0 0 12px var(--accent);
-      border-radius: 2px;
+    .nav-search {
+        margin-left: auto;
     }
 
-    /* =========================
-       MAIN
-    ========================= */
-
-    .app-container {
-      width: min(1320px, calc(100% - 36px));
-      margin: auto;
-      padding-top: 25px;
+    .mode-tabs {
+        overflow-x: auto;
+        grid-template-columns:
+            repeat(10, 95px);
     }
 
-    /* =========================
-       TOP CONTROL
-    ========================= */
-
-    .control-panel {
-      min-height: 68px;
-      padding: 12px 16px;
-
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-
-      background: rgba(13,16,21,.92);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-
-      box-shadow:
-        0 12px 35px rgba(0,0,0,.18),
-        inset 0 1px 0 rgba(255,255,255,.02);
+    .table-header {
+        display: none;
     }
 
-    .title-group {
-      display: flex;
-      align-items: center;
-      gap: 11px;
+    .player-row {
+
+        height: 92px;
+
+        grid-template-columns:
+            125px
+            1fr
+            55px;
+
     }
 
-    .view-title {
-      font-size: 16px;
-      font-weight: 900;
-      letter-spacing: -.5px;
+    .tiers {
+        display: none;
     }
 
-    .status-pill {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-
-      padding: 4px 8px;
-      border-radius: 5px;
-
-      color: #4ade80;
-      background: rgba(34,197,94,.07);
-      border: 1px solid rgba(34,197,94,.17);
-
-      font-size: 8px;
-      font-weight: 900;
-      letter-spacing: .8px;
-    }
-
-    .status-pill::before {
-      content: "";
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: currentColor;
-      box-shadow: 0 0 8px currentColor;
-    }
-
-    .search-wrapper {
-      position: relative;
-      width: 240px;
-    }
-
-    .search-wrapper i {
-      position: absolute;
-      left: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #515966;
-      font-size: 11px;
-    }
-
-    .search-input {
-      width: 100%;
-      height: 36px;
-
-      padding: 0 12px 0 34px;
-
-      background: #080a0e;
-      border: 1px solid var(--border);
-      border-radius: 7px;
-
-      outline: none;
-      color: #fff;
-
-      font-size: 11px;
-      font-weight: 600;
-
-      transition: .2s ease;
-    }
-
-    .search-input::placeholder {
-      color: #515966;
-    }
-
-    .search-input:focus {
-      border-color: rgba(168,85,247,.45);
-      box-shadow: 0 0 0 3px rgba(168,85,247,.07);
-    }
-
-    /* =========================
-       OVERALL TABLE
-    ========================= */
-
-    .table-container {
-      margin-top: 12px;
-
-      background: rgba(13,16,21,.9);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-
-      overflow: hidden;
-    }
-
-    .data-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    .data-table th {
-      height: 43px;
-      padding: 0 17px;
-
-      color: #515966;
-      background: rgba(255,255,255,.012);
-
-      border-bottom: 1px solid var(--border);
-
-      font-size: 8px;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: .8px;
-      text-align: left;
-    }
-
-    .data-table td {
-      padding: 10px 17px;
-      border-bottom: 1px solid rgba(255,255,255,.025);
-    }
-
-    .data-table tr:last-child td {
-      border-bottom: 0;
-    }
-
-    .data-table tbody tr {
-      transition: .15s ease;
-    }
-
-    .data-table tbody tr:hover {
-      background: rgba(255,255,255,.018);
-    }
-
-    .rank-box {
-      width: 27px;
-      height: 27px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      border-radius: 6px;
-      background: rgba(255,255,255,.035);
-
-      color: #727b89;
-      font-size: 9px;
-      font-weight: 900;
-    }
-
-    .rank-1 {
-      background: rgba(245,184,61,.14);
-      color: var(--t1);
-      border: 1px solid rgba(245,184,61,.2);
-    }
-
-    .rank-2 {
-      background: rgba(174,183,197,.12);
-      color: var(--t2);
-      border: 1px solid rgba(174,183,197,.18);
-    }
-
-    .rank-3 {
-      background: rgba(216,131,34,.12);
-      color: var(--t3);
-      border: 1px solid rgba(216,131,34,.18);
-    }
-
-    .player-row-meta {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .player-row-meta img {
-      width: 32px;
-      height: 32px;
-      border-radius: 5px;
-      border: 1px solid rgba(255,255,255,.06);
-    }
-
-    .player-row-name {
-      color: #e8ebef;
-      font-size: 11px;
-      font-weight: 800;
-    }
-
-    .player-row-pts {
-      margin-top: 2px;
-      color: #555d69;
-      font-size: 8px;
-      font-weight: 700;
-    }
-
-    .region-tag {
-      display: inline-flex;
-
-      padding: 4px 7px;
-      border-radius: 4px;
-
-      color: #7ee2a0;
-      background: rgba(74,222,128,.055);
-      border: 1px solid rgba(74,222,128,.1);
-
-      font-size: 8px;
-      font-weight: 900;
-    }
-
-    .chip-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 5px;
-    }
-
-    .mode-chip {
-      height: 25px;
-
-      display: flex;
-      align-items: center;
-      gap: 5px;
-
-      padding: 0 7px;
-
-      color: #9ba3af;
-      background: #101319;
-      border: 1px solid rgba(255,255,255,.055);
-      border-radius: 5px;
-
-      font-size: 8px;
-      font-weight: 900;
-    }
-
-    .mode-chip img {
-      width: 14px;
-      height: 14px;
-      object-fit: contain;
-    }
-
-    /* =========================
-       TIER GRID
-    ========================= */
-
-    .tier-columns {
-      margin-top: 12px;
-
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 9px;
-    }
-
-    .tier-col {
-      min-height: 500px;
-
-      padding: 7px;
-
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-
-      background: rgba(13,16,21,.9);
-      border: 1px solid var(--border);
-      border-radius: 9px;
-    }
-
-    .col-header {
-      height: 39px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      border-radius: 6px;
-
-      font-size: 9px;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: .8px;
-
-      background: rgba(255,255,255,.02);
-      border: 1px solid var(--border);
-    }
-
-    .col-header.t1 {
-      color: var(--t1);
-      background: rgba(245,184,61,.055);
-      border-color: rgba(245,184,61,.16);
-    }
-
-    .col-header.t2 {
-      color: var(--t2);
-      background: rgba(174,183,197,.045);
-      border-color: rgba(174,183,197,.14);
-    }
-
-    .col-header.t3 {
-      color: var(--t3);
-      background: rgba(216,131,34,.05);
-      border-color: rgba(216,131,34,.14);
-    }
-
-    .col-header.t4 {
-      color: var(--t4);
-      background: rgba(67,185,238,.05);
-      border-color: rgba(67,185,238,.14);
-    }
-
-    .col-header.t5 {
-      color: var(--t5);
-      background: rgba(184,120,238,.05);
-      border-color: rgba(184,120,238,.14);
-    }
-
-    .player-card {
-      min-height: 42px;
-      padding: 6px 8px;
-
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 7px;
-
-      background: #101319;
-      border: 1px solid rgba(255,255,255,.045);
-      border-radius: 6px;
-
-      transition: .15s ease;
-    }
-
-    .player-card:hover {
-      background: var(--card-hover);
-      border-color: var(--border-hover);
-      transform: translateY(-1px);
-    }
-
-    .player-meta {
-      min-width: 0;
-
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .player-head {
-      width: 27px;
-      height: 27px;
-      flex-shrink: 0;
-
-      border-radius: 4px;
-      background: #050608;
-      border: 1px solid rgba(255,255,255,.05);
+    .character {
+        height: 100px;
     }
 
     .player-name {
-      min-width: 0;
-
-      color: #dce1e7;
-      font-size: 9px;
-      font-weight: 800;
-
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
+        font-size: 15px;
     }
 
-    .tier-badge {
-      flex-shrink: 0;
-
-      padding: 3px 5px;
-      border-radius: 4px;
-
-      font-size: 7px;
-      font-weight: 900;
-      letter-spacing: .1px;
+    .player-subtitle {
+        font-size: 11px;
     }
 
-    .badge-ht {
-      color: #42baf0;
-      background: rgba(56,189,248,.08);
-      border: 1px solid rgba(56,189,248,.16);
-    }
+}
 
-    .badge-lt {
-      color: #8d98a8;
-      background: rgba(148,163,184,.07);
-      border: 1px solid rgba(148,163,184,.12);
-    }
-
-    .empty-state {
-      padding: 35px 10px;
-      text-align: center;
-
-      color: #454d59;
-      font-size: 9px;
-      font-weight: 800;
-    }
-
-    /* =========================
-       RESPONSIVE
-    ========================= */
-
-    @media (max-width: 1050px) {
-      .nav-container {
-        gap: 10px;
-      }
-
-      .brand-name {
-        display: none;
-      }
-
-      .tier-columns {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-
-    @media (max-width: 700px) {
-      .nav-bar {
-        height: auto;
-      }
-
-      .nav-container {
-        width: calc(100% - 20px);
-        padding: 10px 0;
-        flex-direction: column;
-        align-items: stretch;
-      }
-
-      .brand {
-        justify-content: center;
-      }
-
-      .brand-name {
-        display: block;
-      }
-
-      .nav-menu {
-        width: 100%;
-        height: 42px;
-      }
-
-      .app-container {
-        width: calc(100% - 20px);
-        padding-top: 12px;
-      }
-
-      .control-panel {
-        align-items: stretch;
-        flex-direction: column;
-      }
-
-      .search-wrapper {
-        width: 100%;
-      }
-
-      .tier-columns {
-        grid-template-columns: 1fr;
-      }
-
-      .tier-col {
-        min-height: 200px;
-      }
-
-      .data-table th:nth-child(3),
-      .data-table td:nth-child(3) {
-        display: none;
-      }
-    }
-  </style>
+</style>
 </head>
+
 
 <body>
 
-  <nav class="nav-bar">
-    <div class="nav-container">
 
-      <a href="#" class="brand">
+<!-- =======================================================
+     NAV
+======================================================= -->
+
+<div class="nav-wrapper">
+
+<nav class="navbar">
+
+    <a class="brand" href="#">
+
+        <!-- KEEPING YOUR LOGO SRC -->
         <img
-          src="logo.png"
-          class="brand-logo"
-          alt="Logo"
-          onerror="this.src='https://mc-heads.net/avatar/MSTEVE/64'"
+            src="logo.png"
+            class="brand-logo"
+            alt="Halo Tiers"
+            onerror="this.src='https://mc-heads.net/avatar/MSTEVE/64'"
         >
 
-        <span class="brand-name" id="guildName">
-          Halo Tiers Network
+        <span class="brand-name">
+            Halo Tiers Network
         </span>
-      </a>
 
-      <div class="nav-menu">
+    </a>
 
-        <button class="nav-btn active" onclick="switchView('overall', this)">
-          <i class="fa-solid fa-trophy" style="color:#f5b83d;"></i>
-          OVERALL
-        </button>
 
-        <button class="nav-btn" onclick="switchView('vanilla', this)">
-          <img src="https://solacetiers.com/static/tier_icons/vanilla.png">
-          VANILLA
-        </button>
+    <div class="main-nav">
 
-        <button class="nav-btn" onclick="switchView('sword', this)">
-          <img src="https://solacetiers.com/static/tier_icons/sword.png">
-          SWORD
-        </button>
+        <a href="#">
+            <i class="fa-solid fa-house"></i>
+            Home
+        </a>
 
-        <button class="nav-btn" onclick="switchView('pot', this)">
-          <img src="https://solacetiers.com/static/tier_icons/pot.png">
-          POT
-        </button>
+        <a href="#" class="active">
+            <i class="fa-solid fa-trophy"></i>
+            Rankings
+        </a>
 
-        <button class="nav-btn" onclick="switchView('uhc', this)">
-          <img src="https://solacetiers.com/static/tier_icons/uhc.png">
-          UHC
-        </button>
+        <a href="#">
+            <i class="fa-brands fa-discord"></i>
+            Discords
+        </a>
 
-        <button class="nav-btn" onclick="switchView('nethpot', this)">
-          <img src="https://solacetiers.com/static/tier_icons/netherite.png">
-          NETHPOT
-        </button>
+        <a href="#">
+            <i class="fa-solid fa-file-code"></i>
+            API Docs
+        </a>
 
-        <button class="nav-btn" onclick="switchView('smp', this)">
-          <img src="https://solacetiers.com/static/tier_icons/smp.png">
-          SMP
-        </button>
-
-        <button class="nav-btn" onclick="switchView('axe', this)">
-          <img src="https://solacetiers.com/static/tier_icons/axe.png">
-          AXE
-        </button>
-
-        <button class="nav-btn" onclick="switchView('mace', this)">
-          <i class="fa-solid fa-hammer" style="color:#94a3b8;"></i>
-          MACE
-        </button>
-
-      </div>
     </div>
-  </nav>
 
 
-  <main class="app-container">
+    <div class="nav-search">
 
-    <div class="control-panel">
-
-      <div class="title-group">
-        <div class="view-title" id="viewTitle">
-          Overall Leaderboard
-        </div>
-
-        <div class="status-pill" id="statusPill">
-          ONLINE
-        </div>
-      </div>
-
-      <div class="search-wrapper">
         <i class="fa-solid fa-magnifying-glass"></i>
 
         <input
-          type="text"
-          id="searchInput"
-          class="search-input"
-          placeholder="Search player..."
-          oninput="handleSearch()"
+            type="text"
+            id="searchInput"
+            placeholder="Search player..."
+            oninput="handleSearch()"
         >
-      </div>
+
+        <span>/</span>
+
+    </div>
+
+</nav>
+
+</div>
+
+
+<!-- =======================================================
+     PAGE
+======================================================= -->
+
+<main class="page">
+
+
+<!-- =======================================================
+     MODE TABS
+======================================================= -->
+
+<div class="mode-tabs">
+
+
+    <button
+        class="mode-tab active"
+        onclick="switchView('overall', this)"
+    >
+
+        <i
+            class="fa-solid fa-trophy"
+            style="color:#ffc72c"
+        ></i>
+
+        Overall
+
+    </button>
+
+
+    <button
+        class="mode-tab"
+        onclick="switchView('ltms', this)"
+    >
+
+        <i
+            class="fa-solid fa-swords"
+            style="color:#b9bec5"
+        ></i>
+
+        LTMs
+
+    </button>
+
+
+    <button
+        class="mode-tab"
+        onclick="switchView('vanilla', this)"
+    >
+
+        <img
+            src="https://solacetiers.com/static/tier_icons/vanilla.png"
+        >
+
+        Vanilla
+
+    </button>
+
+
+    <button
+        class="mode-tab"
+        onclick="switchView('uhc', this)"
+    >
+
+        <i
+            class="fa-solid fa-heart"
+            style="color:#e15b65"
+        ></i>
+
+        UHC
+
+    </button>
+
+
+    <button
+        class="mode-tab"
+        onclick="switchView('pot', this)"
+    >
+
+        <img
+            src="https://solacetiers.com/static/tier_icons/pot.png"
+        >
+
+        Pot
+
+    </button>
+
+
+    <button
+        class="mode-tab"
+        onclick="switchView('nethpot', this)"
+    >
+
+        <img
+            src="https://solacetiers.com/static/tier_icons/netherite.png"
+        >
+
+        NethOP
+
+    </button>
+
+
+    <button
+        class="mode-tab"
+        onclick="switchView('smp', this)"
+    >
+
+        <img
+            src="https://solacetiers.com/static/tier_icons/smp.png"
+        >
+
+        SMP
+
+    </button>
+
+
+    <button
+        class="mode-tab"
+        onclick="switchView('sword', this)"
+    >
+
+        <img
+            src="https://solacetiers.com/static/tier_icons/sword.png"
+        >
+
+        Sword
+
+    </button>
+
+
+    <button
+        class="mode-tab"
+        onclick="switchView('axe', this)"
+    >
+
+        <img
+            src="https://solacetiers.com/static/tier_icons/axe.png"
+        >
+
+        Axe
+
+    </button>
+
+
+    <button
+        class="mode-tab"
+        onclick="switchView('mace', this)"
+    >
+
+        <i
+            class="fa-solid fa-gavel"
+            style="color:#9288a6"
+        ></i>
+
+        Mace
+
+    </button>
+
+
+</div>
+
+
+<!-- =======================================================
+     LEADERBOARD
+======================================================= -->
+
+<section class="leaderboard">
+
+
+    <div class="info-bar">
+
+        <button class="info-button">
+
+            <i class="fa-solid fa-circle-info"></i>
+
+            Information
+
+        </button>
+
+
+        <div class="server-label">
+
+            SERVER IP
+
+            <div class="server-ip">
+
+                mcpvp.club
+
+                <i class="fa-regular fa-copy"></i>
+
+                <i
+                    class="fa-brands fa-discord"
+                    style="color:#5c9cff"
+                ></i>
+
+            </div>
+
+        </div>
 
     </div>
 
 
-    <div id="overallView" class="table-container">
+    <!-- ===================================================
+         TABLE HEADER
+    =================================================== -->
 
-      <table class="data-table">
+    <div class="table-header">
 
-        <thead>
-          <tr>
-            <th style="width:55px;">#</th>
-            <th>Player</th>
-            <th>Region</th>
-            <th>Tier Breakdowns</th>
-          </tr>
-        </thead>
+        <div>#</div>
 
-        <tbody id="overallRows"></tbody>
+        <div>Player</div>
 
-      </table>
+        <div>Region</div>
+
+        <div>Tiers</div>
 
     </div>
 
+
+    <!-- ===================================================
+         PLAYERS
+    =================================================== -->
+
+    <div id="overallRows"></div>
+
+
+    <!-- GAMEMODE VIEW -->
 
     <div
-      id="gamemodeView"
-      class="tier-columns"
-      style="display:none;"
+        id="gamemodeView"
+        style="display:none;"
     ></div>
 
-  </main>
+
+</section>
 
 
-  <script>
+</main>
+
+
+<script>
+
+
+/* =========================================================
+   API
+========================================================= */
+
+/*
+    YOUR API
+
+    If you are using a CORS proxy, change ONLY this URL.
+*/
+
+const BOT_API_URL =
+    'https://corsproxy.io/?url=' +
+    encodeURIComponent(
+        'https://halotiers.wispbyte.app/api/tiers'
+    );
+
+
+/*
+    If your API has CORS enabled directly,
+    use this instead:
 
     const BOT_API_URL =
-      'https://corsproxy.io/?url=' +
-      encodeURIComponent('https://halotiers.wispbyte.app/api/tiers');
-
-    let globalPlayerData = [];
-    let currentMode = 'overall';
-
-    const POINT_VALUES = {
-      'HT1': 60,
-      'LT1': 45,
-      'HT2': 30,
-      'LT2': 20,
-      'HT3': 10,
-      'LT3': 6,
-      'HT4': 4,
-      'LT4': 3,
-      'HT5': 2,
-      'LT5': 1
-    };
+        'https://halotiers.wispbyte.app/api/tiers';
+*/
 
 
-    function calculatePoints(tierString) {
-      if (!tierString) return 0;
+let globalPlayerData = [];
 
-      return POINT_VALUES[
-        tierString.trim().toUpperCase()
-      ] || 0;
-    }
+let currentMode = 'overall';
 
 
-    function calculateTotalPoints(tiersList) {
-      if (!Array.isArray(tiersList)) return 0;
+/* =========================================================
+   POINT VALUES
+========================================================= */
 
-      return tiersList.reduce(
+const POINT_VALUES = {
+
+    'HT1': 60,
+    'LT1': 45,
+
+    'HT2': 30,
+    'LT2': 20,
+
+    'HT3': 10,
+    'LT3': 6,
+
+    'HT4': 4,
+    'LT4': 3,
+
+    'HT5': 2,
+    'LT5': 1
+
+};
+
+
+/* =========================================================
+   POINT CALCULATIONS
+========================================================= */
+
+function calculatePoints(tierString) {
+
+    if (!tierString)
+        return 0;
+
+    return POINT_VALUES[
+        tierString
+            .trim()
+            .toUpperCase()
+    ] || 0;
+
+}
+
+
+function calculateTotalPoints(tiersList) {
+
+    if (!Array.isArray(tiersList))
+        return 0;
+
+    return tiersList.reduce(
         (sum, item) =>
-          sum + calculatePoints(item.tier),
+            sum + calculatePoints(item.tier),
         0
-      );
-    }
+    );
+
+}
 
 
-    async function fetchTierData() {
+/* =========================================================
+   API FETCH
+========================================================= */
 
-      try {
+async function fetchTierData() {
 
-        const res = await fetch(BOT_API_URL);
-        const json = await res.json();
+    try {
+
+        const res =
+            await fetch(BOT_API_URL);
+
+        if (!res.ok)
+            throw new Error(
+                `HTTP ${res.status}`
+            );
+
+        const json =
+            await res.json();
+
 
         if (json.guild) {
-          document.getElementById('guildName').innerText =
-            json.guild.toUpperCase();
+
+            document.title =
+                json.guild +
+                ' Tierlist';
+
         }
 
-        const rawPlayers =
-          json.players ||
-          json.data ||
-          json;
 
+        const rawPlayers =
+            json.players ||
+            json.data ||
+            json;
+
+
+        /* ===============================================
+           ARRAY FORMAT
+        =============================================== */
 
         if (Array.isArray(rawPlayers)) {
 
-          globalPlayerData = rawPlayers.map(p => {
+            globalPlayerData =
+                rawPlayers.map(p => {
 
-            const tierVal =
-              p.tier || 'LT5';
+                    const tierVal =
+                        p.tier || 'LT5';
 
-            const modeVal =
-              p.mode || 'vanilla';
+                    const modeVal =
+                        p.mode || 'vanilla';
 
-            const tiersList =
-              p.tiersList ||
-              [{
-                mode: modeVal,
-                tier: tierVal
-              }];
+                    const tiersList =
+                        p.tiersList ||
+                        [{
+                            mode: modeVal,
+                            tier: tierVal
+                        }];
 
-            const totalPts =
-              p.pts !== undefined
-                ? p.pts
-                : calculateTotalPoints(tiersList);
+                    const totalPts =
+                        p.pts !== undefined
+                            ? p.pts
+                            : calculateTotalPoints(
+                                tiersList
+                            );
 
-            return {
-              name:
-                p.ign ||
-                p.discord ||
-                'Unknown',
 
-              pts: totalPts,
+                    return {
 
-              region:
-                p.region ||
-                'NA',
+                        name:
+                            p.ign ||
+                            p.discord ||
+                            p.username ||
+                            'Unknown',
 
-              tier: tierVal,
+                        pts: totalPts,
 
-              mode: modeVal,
+                        region:
+                            p.region ||
+                            'NA',
 
-              tiersList: tiersList
-            };
+                        tier: tierVal,
 
-          });
+                        mode: modeVal,
 
-        } else {
+                        tiersList:
+                            tiersList
 
-          globalPlayerData =
-            Object.entries(rawPlayers).map(
-              ([id, p]) => {
+                    };
 
-                const tierVal =
-                  typeof p === 'string'
-                    ? p
-                    : (p.tier || 'LT5');
+                });
 
-                const modeVal =
-                  p.mode || 'vanilla';
+        }
 
-                const tiersList =
-                  p.tiersList ||
-                  [{
-                    mode: modeVal,
-                    tier: tierVal
-                  }];
 
-                const totalPts =
-                  p.points !== undefined
-                    ? p.points
-                    : calculateTotalPoints(tiersList);
+        /* ===============================================
+           OBJECT FORMAT
+        =============================================== */
 
-                return {
-                  name:
-                    p.username ||
-                    p.ign ||
-                    id,
+        else {
 
-                  pts: totalPts,
+            globalPlayerData =
+                Object.entries(
+                    rawPlayers
+                ).map(
+                    ([id, p]) => {
 
-                  region:
-                    p.region ||
-                    'NA',
+                        const tierVal =
+                            typeof p === 'string'
+                                ? p
+                                : (
+                                    p.tier ||
+                                    'LT5'
+                                );
 
-                  tier: tierVal,
+                        const modeVal =
+                            p.mode ||
+                            'vanilla';
 
-                  mode: modeVal,
+                        const tiersList =
+                            p.tiersList ||
+                            [{
+                                mode: modeVal,
+                                tier: tierVal
+                            }];
 
-                  tiersList: tiersList
-                };
+                        const totalPts =
+                            p.points !== undefined
+                                ? p.points
+                                : calculateTotalPoints(
+                                    tiersList
+                                );
 
-              }
-            );
+
+                        return {
+
+                            name:
+                                p.username ||
+                                p.ign ||
+                                id,
+
+                            pts: totalPts,
+
+                            region:
+                                p.region ||
+                                'NA',
+
+                            tier: tierVal,
+
+                            mode: modeVal,
+
+                            tiersList:
+                                tiersList
+
+                        };
+
+                    }
+                );
+
         }
 
 
         globalPlayerData.sort(
-          (a, b) => b.pts - a.pts
+            (a,b) =>
+                b.pts - a.pts
         );
+
 
         renderCurrentView();
 
-      } catch (err) {
+
+    } catch(error) {
 
         console.error(
-          'API Load Error:',
-          err
+            'API Load Error:',
+            error
         );
 
-        const pill =
-          document.getElementById(
-            'statusPill'
-          );
-
-        pill.innerText = 'OFFLINE';
-
-        pill.style.color = '#f87171';
-
-        pill.style.borderColor =
-          'rgba(248,113,113,.3)';
-
-        pill.style.background =
-          'rgba(248,113,113,.08)';
 
         document.getElementById(
-          'overallRows'
+            'overallRows'
         ).innerHTML = `
-          <tr>
-            <td colspan="4" class="empty-state">
-              Failed to fetch tier data.
-            </td>
-          </tr>
-        `;
-      }
-    }
 
+            <div class="empty-state">
 
-    function renderOverall(
-      filterQuery = ''
-    ) {
+                Failed to load tier data.
 
-      const tbody =
-        document.getElementById(
-          'overallRows'
-        );
+                <br><br>
 
-      tbody.innerHTML = '';
-
-      let filtered =
-        globalPlayerData;
-
-
-      if (filterQuery) {
-
-        filtered =
-          filtered.filter(p =>
-            p.name
-              .toLowerCase()
-              .includes(
-                filterQuery.toLowerCase()
-              )
-          );
-      }
-
-
-      if (!filtered.length) {
-
-        tbody.innerHTML = `
-          <tr>
-            <td colspan="4"
-                class="empty-state">
-              No matching players found
-            </td>
-          </tr>
-        `;
-
-        return;
-      }
-
-
-      filtered
-        .slice(0, 100)
-        .forEach((player, idx) => {
-
-          const rank =
-            idx + 1;
-
-          const rClass =
-            rank === 1
-              ? 'rank-1'
-              : rank === 2
-                ? 'rank-2'
-                : rank === 3
-                  ? 'rank-3'
-                  : '';
-
-
-          let chipsHtml =
-            player.tiersList
-              .map(t => `
-
-                <div class="mode-chip">
-
-                  <img
-                    src="https://solacetiers.com/static/tier_icons/${t.mode}.png"
-                    onerror="this.style.display='none'"
-                  >
-
-                  <span>
-                    ${t.tier}
-                  </span>
-
-                </div>
-
-              `)
-              .join('');
-
-
-          tbody.innerHTML += `
-
-            <tr>
-
-              <td>
-                <div class="rank-box ${rClass}">
-                  ${rank}
-                </div>
-              </td>
-
-
-              <td>
-
-                <div class="player-row-meta">
-
-                  <img
-                    class="pixelated"
-                    src="https://mc-heads.net/avatar/${player.name}/64"
-                    onerror="this.src='https://mc-heads.net/avatar/MSTEVE/64'"
-                  >
-
-                  <div>
-
-                    <div class="player-row-name">
-                      ${player.name}
-                    </div>
-
-                    <div class="player-row-pts">
-                      ${player.pts} points
-                    </div>
-
-                  </div>
-
-                </div>
-
-              </td>
-
-
-              <td>
-                <span class="region-tag">
-                  ${player.region}
-                </span>
-              </td>
-
-
-              <td>
-                <div class="chip-container">
-                  ${chipsHtml}
-                </div>
-              </td>
-
-            </tr>
-
-          `;
-        });
-    }
-
-
-    function renderGamemodeColumns(
-      modeName,
-      filterQuery = ''
-    ) {
-
-      const grid =
-        document.getElementById(
-          'gamemodeView'
-        );
-
-      grid.innerHTML = '';
-
-
-      const tierHeaders = [
-
-        {
-          title: 'Tier 1',
-          class: 't1'
-        },
-
-        {
-          title: 'Tier 2',
-          class: 't2'
-        },
-
-        {
-          title: 'Tier 3',
-          class: 't3'
-        },
-
-        {
-          title: 'Tier 4',
-          class: 't4'
-        },
-
-        {
-          title: 'Tier 5',
-          class: 't5'
-        }
-
-      ];
-
-
-      let modePlayers =
-        globalPlayerData.filter(
-          p =>
-            p.mode.toLowerCase() ===
-            modeName.toLowerCase()
-        );
-
-
-      if (filterQuery) {
-
-        modePlayers =
-          modePlayers.filter(
-            p =>
-              p.name
-                .toLowerCase()
-                .includes(
-                  filterQuery.toLowerCase()
-                )
-          );
-      }
-
-
-      tierHeaders.forEach(
-        (t, idx) => {
-
-          const colNum =
-            idx + 1;
-
-          const colPlayers =
-            modePlayers.filter(
-              p =>
-                p.tier.includes(
-                  colNum.toString()
-                )
-            );
-
-
-          let cardsHtml = '';
-
-
-          if (!colPlayers.length) {
-
-            cardsHtml = `
-              <div class="empty-state">
-                No Players
-              </div>
-            `;
-
-          } else {
-
-            colPlayers.forEach(
-              player => {
-
-                const isHT =
-                  player.tier
-                    .toUpperCase()
-                    .startsWith('HT');
-
-                const badgeClass =
-                  isHT
-                    ? 'badge-ht'
-                    : 'badge-lt';
-
-
-                cardsHtml += `
-
-                  <div class="player-card">
-
-                    <div class="player-meta">
-
-                      <img
-                        class="player-head pixelated"
-                        src="https://mc-heads.net/avatar/${player.name}/64"
-                        onerror="this.src='https://mc-heads.net/avatar/MSTEVE/64'"
-                      >
-
-                      <span class="player-name">
-                        ${player.name}
-                      </span>
-
-                    </div>
-
-                    <span class="tier-badge ${badgeClass}">
-                      ${player.tier}
-                    </span>
-
-                  </div>
-
-                `;
-              }
-            );
-          }
-
-
-          grid.innerHTML += `
-
-            <div class="tier-col">
-
-              <div class="col-header ${t.class}">
-                ${t.title}
-              </div>
-
-              ${cardsHtml}
+                Check your API or CORS proxy.
 
             </div>
 
-          `;
-        }
-      );
+        `;
+
+    }
+
+}
+
+
+/* =========================================================
+   OVERALL
+========================================================= */
+
+function renderOverall(
+    filterQuery = ''
+) {
+
+    const container =
+        document.getElementById(
+            'overallRows'
+        );
+
+
+    container.innerHTML = '';
+
+
+    let filtered =
+        globalPlayerData;
+
+
+    if (filterQuery) {
+
+        filtered =
+            filtered.filter(
+                p =>
+                    p.name
+                        .toLowerCase()
+                        .includes(
+                            filterQuery
+                                .toLowerCase()
+                        )
+            );
+
     }
 
 
-    function switchView(
-      mode,
-      tabElem
-    ) {
+    if (!filtered.length) {
 
-      document
-        .querySelectorAll('.nav-btn')
+        container.innerHTML = `
+
+            <div class="empty-state">
+
+                No players found.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    filtered
+        .slice(0,100)
         .forEach(
-          btn =>
-            btn.classList.remove(
-              'active'
-            )
+            (player,index) => {
+
+
+                const rank =
+                    index + 1;
+
+
+                let rankClass = '';
+
+                if (rank === 1)
+                    rankClass = 'rank-1';
+
+                else if (rank === 2)
+                    rankClass = 'rank-2';
+
+                else if (rank === 3)
+                    rankClass = 'rank-3';
+
+
+                /*
+                    This creates the same
+                    character/body position
+                    as the screenshot.
+                */
+
+                const characterURL =
+                    `https://mc-heads.net/body/${encodeURIComponent(player.name)}/100`;
+
+
+                /*
+                    Tier icons
+                */
+
+                let tiersHTML = '';
+
+
+                player.tiersList.forEach(
+                    tier => {
+
+                        const tierName =
+                            String(
+                                tier.tier || 'LT5'
+                            ).toUpperCase();
+
+
+                        const tierClass =
+                            tierName
+                                .toLowerCase()
+                                .replace(
+                                    /[^a-z0-9]/g,
+                                    ''
+                                );
+
+
+                        tiersHTML += `
+
+                            <div
+                                class="tier-item tier-${tierClass}"
+                            >
+
+                                <div class="tier-icon">
+
+                                    <img
+                                        src="https://solacetiers.com/static/tier_icons/${tier.mode}.png"
+
+                                        onerror="
+                                            this.style.display='none'
+                                        "
+                                    >
+
+                                </div>
+
+                                <div class="tier-name">
+                                    ${tierName}
+                                </div>
+
+                            </div>
+
+                        `;
+
+                    }
+                );
+
+
+                /*
+                    PLAYER ROW
+                */
+
+                container.innerHTML += `
+
+                    <div
+                        class="
+                            player-row
+                            ${rankClass}
+                        "
+                    >
+
+                        <!-- RANK -->
+
+                        <div class="rank-section">
+
+                            <div class="rank-number">
+                                ${rank}.
+                            </div>
+
+                            <img
+                                class="character"
+                                src="${characterURL}"
+
+                                onerror="
+                                    this.src='https://mc-heads.net/body/MSTEVE/100'
+                                "
+                            >
+
+                        </div>
+
+
+                        <!-- PLAYER -->
+
+                        <div class="player-information">
+
+                            <div class="player-name">
+
+                                ${escapeHTML(
+                                    player.name
+                                )}
+
+                            </div>
+
+
+                            <div class="player-subtitle">
+
+                                <span>
+                                    ✦
+                                </span>
+
+                                Combat Master
+
+                                <span>
+                                    (${player.pts} points)
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- REGION -->
+
+                        <div>
+
+                            <div
+                                class="
+                                    region
+                                    ${player.region}
+                                "
+                            >
+
+                                ${player.region}
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- TIERS -->
+
+                        <div class="tiers">
+
+                            ${tiersHTML}
+
+                        </div>
+
+
+                    </div>
+
+                `;
+
+            }
         );
 
-
-      tabElem.classList.add(
-        'active'
-      );
+}
 
 
-      currentMode = mode;
+/* =========================================================
+   GAMEMODE VIEW
+========================================================= */
 
+function renderGamemode(
+    modeName,
+    filterQuery = ''
+) {
 
-      document.getElementById(
-        'searchInput'
-      ).value = '';
-
-
-      const title =
+    const container =
         document.getElementById(
-          'viewTitle'
-        );
-
-      const overall =
-        document.getElementById(
-          'overallView'
-        );
-
-      const gamemode =
-        document.getElementById(
-          'gamemodeView'
+            'gamemodeView'
         );
 
 
-      if (mode === 'overall') {
+    container.style.display =
+        'block';
 
-        title.innerText =
-          'Overall Leaderboard';
-
-        overall.style.display =
-          'block';
-
-        gamemode.style.display =
-          'none';
-
-      } else {
-
-        title.innerText =
-          `${mode.toUpperCase()} Rankings`;
-
-        overall.style.display =
-          'none';
-
-        gamemode.style.display =
-          'grid';
-      }
+    container.innerHTML = '';
 
 
-      renderCurrentView();
+    let players =
+        globalPlayerData.filter(
+            p =>
+                p.mode &&
+                p.mode.toLowerCase() ===
+                modeName.toLowerCase()
+        );
+
+
+    if (filterQuery) {
+
+        players =
+            players.filter(
+                p =>
+                    p.name
+                        .toLowerCase()
+                        .includes(
+                            filterQuery
+                                .toLowerCase()
+                        )
+            );
+
     }
 
 
-    function renderCurrentView() {
+    const tiers = [
+        'Tier 1',
+        'Tier 2',
+        'Tier 3',
+        'Tier 4',
+        'Tier 5'
+    ];
 
-      const query =
-        document
-          .getElementById(
+
+    tiers.forEach(
+        (tierName,index) => {
+
+            const tierNumber =
+                index + 1;
+
+
+            const tierPlayers =
+                players.filter(
+                    p =>
+                        p.tier.includes(
+                            String(tierNumber)
+                        )
+                );
+
+
+            let html = `
+
+                <div
+                    style="
+                        margin:20px;
+                        padding:20px;
+                        background:#151e28;
+                        border:1px solid #202c38;
+                        border-radius:12px;
+                    "
+                >
+
+                    <h2
+                        style="
+                            color:white;
+                            margin-bottom:15px;
+                        "
+                    >
+                        ${tierName}
+                    </h2>
+
+            `;
+
+
+            tierPlayers.forEach(
+                player => {
+
+                    html += `
+
+                        <div
+                            style="
+                                padding:10px;
+                                margin-bottom:6px;
+                                background:#111821;
+                                border-radius:7px;
+                            "
+                        >
+
+                            ${escapeHTML(
+                                player.name
+                            )}
+
+                            -
+
+                            ${player.tier}
+
+                        </div>
+
+                    `;
+
+                }
+            );
+
+
+            html += `</div>`;
+
+
+            container.innerHTML +=
+                html;
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   SWITCH VIEW
+========================================================= */
+
+function switchView(
+    mode,
+    button
+) {
+
+    document
+        .querySelectorAll(
+            '.mode-tab'
+        )
+        .forEach(
+            btn =>
+                btn.classList.remove(
+                    'active'
+                )
+        );
+
+
+    button.classList.add(
+        'active'
+    );
+
+
+    currentMode = mode;
+
+
+    if (mode === 'overall') {
+
+        document.getElementById(
+            'overallRows'
+        ).style.display =
+            'block';
+
+        document.getElementById(
+            'gamemodeView'
+        ).style.display =
+            'none';
+
+        renderOverall(
+            document.getElementById(
+                'searchInput'
+            ).value
+        );
+
+    }
+
+    else {
+
+        document.getElementById(
+            'overallRows'
+        ).style.display =
+            'none';
+
+        document.getElementById(
+            'gamemodeView'
+        ).style.display =
+            'block';
+
+        renderGamemode(
+            mode,
+            document.getElementById(
+                'searchInput'
+            ).value
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+function handleSearch() {
+
+    const query =
+        document.getElementById(
             'searchInput'
-          )
-          .value
-          .trim();
+        ).value.trim();
 
 
-      if (
-        currentMode ===
-        'overall'
-      ) {
+    if (currentMode === 'overall') {
 
         renderOverall(query);
 
-      } else {
+    }
 
-        renderGamemodeColumns(
-          currentMode,
-          query
+    else {
+
+        renderGamemode(
+            currentMode,
+            query
         );
-      }
+
     }
 
-
-    function handleSearch() {
-      renderCurrentView();
-    }
+}
 
 
-    fetchTierData();
+/* =========================================================
+   HTML ESCAPE
+========================================================= */
 
-  </script>
+function escapeHTML(value) {
+
+    return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+
+}
+
+
+/* =========================================================
+   START
+========================================================= */
+
+fetchTierData();
+
+</script>
 
 </body>
 </html>
