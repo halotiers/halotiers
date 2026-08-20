@@ -14,7 +14,7 @@
       --text-main: #f8fafc;
       --text-muted: #64748b;
       --accent-purple: #8a2be2;
-      
+
       --t1-glow: rgba(234, 179, 8, 0.15);
       --t2-glow: rgba(148, 163, 184, 0.15);
       --t3-glow: rgba(217, 119, 6, 0.15);
@@ -148,7 +148,7 @@
     }
 
     .panel-title { font-size: 1.2rem; font-weight: 800; }
-    
+
     .status-badge { 
       background: rgba(138, 43, 226, 0.12); 
       padding: 0.4rem 0.8rem; 
@@ -162,7 +162,7 @@
 
     .leaderboard-table { width: 100%; border-collapse: separate; border-spacing: 0 0.4rem; }
     .leaderboard-table th { padding: 0.6rem 1rem; font-size: 0.7rem; text-transform: uppercase; color: var(--text-muted); font-weight: 800; text-align: left; }
-    
+
     .lb-row { background: var(--inner-bg); border-radius: 8px; }
     .lb-row td { padding: 0.8rem 1rem; vertical-align: middle; }
     .lb-row td:first-child { border-top-left-radius: 8px; border-bottom-left-radius: 8px; }
@@ -196,13 +196,13 @@
 
     .tier-columns-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.8rem; }
     .tier-col { background: var(--inner-bg); border-radius: 12px; border: 1px solid var(--card-border); padding: 0.8rem; min-height: 400px; }
-    
+
     .col-header {
       padding: 0.7rem; border-radius: 8px; text-align: center; font-weight: 900; font-size: 1rem;
       margin-bottom: 0.8rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;
     }
     .col-header img { width: 22px; height: 22px; }
-    
+
     .col-t1 { background: var(--t1-glow); color: #eab308; border: 1px solid #eab308; }
     .col-t2 { background: var(--t2-glow); color: #94a3b8; border: 1px solid #94a3b8; }
     .col-t3 { background: var(--t3-glow); color: #d97706; border: 1px solid #d97706; }
@@ -233,9 +233,9 @@
       <div class="logo-container">
         <img src="logo.png" alt="Halo Tiers Logo" onerror="this.src='https://mc-heads.net/avatar/MSTEVE/80'">
       </div>
-      <div class="header-sub">HALO TIERS NETWORK</div>
+      <div class="header-sub" id="guildSubTitle">HALO TIERS NETWORK</div>
       <div class="header-title">Overall Rankings</div>
-      
+
       <div class="stat-pill">
         LISTED PLAYERS: <span id="playerCount">0</span>
       </div>
@@ -274,7 +274,7 @@
     <div class="content-panel">
       <div class="panel-top">
         <div class="panel-title" id="panelTitle">Top 100 overall players</div>
-        <div class="status-badge">STATUS: ONLINE</div>
+        <div class="status-badge" id="statusBadge">STATUS: ONLINE</div>
       </div>
 
       <div id="overallView">
@@ -296,8 +296,8 @@
   </div>
 
   <script>
-    // Live PandaStack API Endpoint
-    const BOT_API_URL = 'https://577bc9b4-3507-4d19-b420-d50a8f662a6b.pandastack.ai/api/sync';
+    // Pointing to your Express Bot API endpoint
+    const BOT_API_URL = 'https://halotiers.wispybyte.app/api/tiers';
     let globalPlayerData = [];
 
     const POINT_VALUES = {
@@ -323,25 +323,47 @@
       try {
         const res = await fetch(BOT_API_URL);
         const json = await res.json();
-        
-        // Extract player payload object
-        const data = json.data || json;
 
-        globalPlayerData = Object.entries(data).map(([id, p]) => {
-          const tierVal = typeof p === 'string' ? p : (p.tier || 'LT5');
-          const modeVal = p.mode || 'vanilla';
-          const tiersList = p.tiersList || [{ mode: modeVal, tier: tierVal }];
-          const totalPts = p.points !== undefined ? p.points : calculateTotalPoints(tiersList);
+        if (json.guild) {
+          document.getElementById('guildSubTitle').innerText = json.guild.toUpperCase();
+        }
 
-          return {
-            name: p.username || id,
-            pts: totalPts,
-            region: p.region || 'NA',
-            tier: tierVal,
-            mode: modeVal,
-            tiersList: tiersList
-          };
-        });
+        // Support both { players: [...] } from Express and raw object format
+        const rawPlayers = json.players || json.data || json;
+
+        if (Array.isArray(rawPlayers)) {
+          globalPlayerData = rawPlayers.map(p => {
+            const tierVal = p.tier || 'LT5';
+            const modeVal = p.mode || 'vanilla';
+            const tiersList = p.tiersList || [{ mode: modeVal, tier: tierVal }];
+            const totalPts = p.pts !== undefined ? p.pts : calculateTotalPoints(tiersList);
+
+            return {
+              name: p.ign || p.discord || 'Unknown',
+              pts: totalPts,
+              region: p.region || 'NA',
+              tier: tierVal,
+              mode: modeVal,
+              tiersList: tiersList
+            };
+          });
+        } else {
+          globalPlayerData = Object.entries(rawPlayers).map(([id, p]) => {
+            const tierVal = typeof p === 'string' ? p : (p.tier || 'LT5');
+            const modeVal = p.mode || 'vanilla';
+            const tiersList = p.tiersList || [{ mode: modeVal, tier: tierVal }];
+            const totalPts = p.points !== undefined ? p.points : calculateTotalPoints(tiersList);
+
+            return {
+              name: p.username || p.ign || id,
+              pts: totalPts,
+              region: p.region || 'NA',
+              tier: tierVal,
+              mode: modeVal,
+              tiersList: tiersList
+            };
+          });
+        }
 
         globalPlayerData.sort((a, b) => b.pts - a.pts);
 
@@ -349,6 +371,8 @@
         renderOverall();
       } catch (err) {
         console.error('API Error:', err);
+        document.getElementById('statusBadge').innerText = 'STATUS: OFFLINE';
+        document.getElementById('statusBadge').style.color = '#f38ba8';
         document.getElementById('overallRows').innerHTML = `
           <tr>
             <td colspan="4" style="text-align:center; padding: 2.5rem; color: var(--text-muted); font-weight: 700;">
@@ -427,7 +451,7 @@
       tierHeaders.forEach((t, idx) => {
         const colNum = idx + 1;
         let iconMarkup = t.icon ? `<img src="${t.icon}" alt="T${colNum}">` : '';
-        
+
         const colPlayers = modePlayers.filter(p => p.tier.includes(colNum.toString()));
 
         let cardsHtml = '';
