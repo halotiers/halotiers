@@ -1,28 +1,22 @@
 const express = require('express');
-const cors = require('cors');
-const path = require('path');
-const syncRouter = require('./sync');
-
 const app = express();
-const PORT = process.env.PORT || 3000;
 
-// Middleware
-app.use(cors());
+// This is required so your server can read the JSON data the bot sends
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
-// Serve static web pages from current folder
-app.use(express.static(path.join(__dirname, '.')));
+// This route catches the data sent from your Discord bot
+app.post('/api/sync', (req, res) => {
+    // 1. This prints the exact data to your PandaStack console!
+    console.log("🚨 NEW TICKET DATA RECEIVED:", req.body);
 
-// API Route Endpoint
-app.use('/api', syncRouter);
+    // 2. You can access individual pieces of data like this:
+    const { discordUsername, ign, tierResult } = req.body;
+    console.log(`Player ${ign} (${discordUsername}) got tier: ${tierResult}`);
 
-// Fallback to serve main HTML page
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+    // 3. Tell the Discord bot we got it successfully
+    res.status(200).send({ message: "Data received loud and clear!" });
 });
 
-// Start listening
-app.listen(PORT, () => {
-  console.log(`Server is online and listening on port ${PORT}`);
+app.listen(8000, () => {
+    console.log("Website backend is running!");
 });
