@@ -4,39 +4,69 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Halo Tiers Network</title>
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --bg-main: #050608;
-      --bg-panel: #0a0c10;
-      --bg-card: #11141c;
-      --bg-card-hover: #171b26;
-      --border: rgba(255, 255, 255, 0.07);
-      --border-bright: rgba(255, 255, 255, 0.16);
-      
+      --bg: #07080b;
+      --bg-2: #0b0d11;
+      --panel: #0d1015;
+      --card: #11141a;
+      --card-hover: #171b23;
+
+      --border: rgba(255,255,255,.055);
+      --border-hover: rgba(255,255,255,.13);
+
+      --text: #f5f7fa;
+      --muted: #737b89;
+      --muted-2: #4d5562;
+
       --accent: #a855f7;
-      --accent-glow: rgba(168, 85, 247, 0.25);
-      
-      --t1: #fbbf24;
-      --t2: #94a3b8;
-      --t3: #d97706;
-      --t4: #38bdf8;
-      --t5: #c084fc;
+      --accent-soft: rgba(168,85,247,.12);
+      --accent-glow: rgba(168,85,247,.2);
+
+      --t1: #f5b83d;
+      --t2: #aeb7c5;
+      --t3: #d88322;
+      --t4: #43b9ee;
+      --t5: #b878ee;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    html {
+      background: var(--bg);
+    }
 
     body {
-      background: var(--bg-main);
-      color: #f1f5f9;
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding-bottom: 4rem;
+      background:
+        radial-gradient(circle at 50% -15%, rgba(168,85,247,.09), transparent 35%),
+        linear-gradient(180deg, #07080b 0%, #050609 100%);
+      color: var(--text);
+      padding-bottom: 80px;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,.012) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.012) 1px, transparent 1px);
+      background-size: 40px 40px;
+      mask-image: linear-gradient(to bottom, black, transparent 70%);
+      z-index: -1;
     }
 
     .pixelated {
@@ -44,645 +74,1348 @@
       image-rendering: crisp-edges;
     }
 
-    /* Header Nav */
+    /* =========================
+       NAVBAR
+    ========================= */
+
     .nav-bar {
       width: 100%;
-      background: rgba(10, 12, 16, 0.85);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
+      height: 70px;
       position: sticky;
       top: 0;
       z-index: 100;
-      display: flex;
-      justify-content: center;
+      background: rgba(7,8,11,.86);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
     }
 
     .nav-container {
-      width: 100%;
-      max-width: 1350px;
-      padding: 0.8rem 1.5rem;
+      width: min(1320px, calc(100% - 36px));
+      height: 100%;
+      margin: auto;
+
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 1.5rem;
+      gap: 30px;
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 11px;
       text-decoration: none;
+      flex-shrink: 0;
     }
 
     .brand-logo {
-      width: 42px;
-      height: 42px;
-      border-radius: 10px;
-      border: 1px solid var(--border-bright);
-      box-shadow: 0 0 15px var(--accent-glow);
+      width: 38px;
+      height: 38px;
+      border-radius: 9px;
       object-fit: cover;
+      border: 1px solid rgba(255,255,255,.1);
+      box-shadow: 0 0 22px var(--accent-glow);
     }
 
     .brand-name {
-      font-weight: 900;
-      font-size: 1.15rem;
-      letter-spacing: -0.5px;
       color: #fff;
-      text-transform: uppercase;
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: -.3px;
     }
 
     .nav-menu {
       display: flex;
-      gap: 0.35rem;
+      align-items: center;
+      gap: 3px;
+      height: 100%;
       overflow-x: auto;
-      padding: 0.2rem 0;
+      scrollbar-width: none;
+    }
+
+    .nav-menu::-webkit-scrollbar {
+      display: none;
     }
 
     .nav-btn {
+      position: relative;
+      height: 38px;
+      padding: 0 11px;
+
+      display: flex;
+      align-items: center;
+      gap: 7px;
+
       background: transparent;
       border: 1px solid transparent;
-      color: #94a3b8;
-      padding: 0.55rem 0.9rem;
-      border-radius: 8px;
-      font-weight: 800;
-      font-size: 0.78rem;
+      border-radius: 7px;
+
+      color: #737b88;
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: .45px;
+
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 0.45rem;
-      transition: all 0.2s ease;
       white-space: nowrap;
+      transition: .18s ease;
     }
 
-    .nav-btn img { width: 16px; height: 16px; object-fit: contain; }
-    .nav-btn.active { background: var(--bg-card); border-color: var(--border-bright); color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
-    .nav-btn:hover:not(.active) { color: #fff; background: rgba(255, 255, 255, 0.03); }
+    .nav-btn img {
+      width: 17px;
+      height: 17px;
+      object-fit: contain;
+    }
 
-    /* Layout Container */
+    .nav-btn:hover {
+      color: #dfe3e8;
+      background: rgba(255,255,255,.025);
+    }
+
+    .nav-btn.active {
+      color: #fff;
+      background: #11141a;
+      border-color: rgba(255,255,255,.08);
+      box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,.015),
+        0 4px 18px rgba(0,0,0,.25);
+    }
+
+    .nav-btn.active::after {
+      content: "";
+      position: absolute;
+      left: 12px;
+      right: 12px;
+      bottom: -1px;
+      height: 2px;
+      background: var(--accent);
+      box-shadow: 0 0 12px var(--accent);
+      border-radius: 2px;
+    }
+
+    /* =========================
+       MAIN
+    ========================= */
+
     .app-container {
-      width: 100%;
-      max-width: 1350px;
-      padding: 1.8rem 1.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
+      width: min(1320px, calc(100% - 36px));
+      margin: auto;
+      padding-top: 25px;
     }
 
-    /* Sub-bar / Control Panel */
+    /* =========================
+       TOP CONTROL
+    ========================= */
+
     .control-panel {
+      min-height: 68px;
+      padding: 12px 16px;
+
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      background: var(--bg-panel);
+      justify-content: space-between;
+      gap: 20px;
+
+      background: rgba(13,16,21,.92);
       border: 1px solid var(--border);
-      padding: 1rem 1.4rem;
-      border-radius: 14px;
-      flex-wrap: wrap;
-      gap: 1rem;
+      border-radius: 10px;
+
+      box-shadow:
+        0 12px 35px rgba(0,0,0,.18),
+        inset 0 1px 0 rgba(255,255,255,.02);
     }
 
     .title-group {
       display: flex;
       align-items: center;
-      gap: 0.8rem;
+      gap: 11px;
     }
 
     .view-title {
-      font-size: 1.3rem;
+      font-size: 16px;
       font-weight: 900;
-      color: #fff;
-      letter-spacing: -0.3px;
+      letter-spacing: -.5px;
     }
 
     .status-pill {
-      background: rgba(34, 197, 94, 0.12);
-      border: 1px solid rgba(34, 197, 94, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+
+      padding: 4px 8px;
+      border-radius: 5px;
+
       color: #4ade80;
-      font-size: 0.68rem;
-      font-weight: 800;
-      padding: 0.25rem 0.65rem;
-      border-radius: 20px;
-      letter-spacing: 0.5px;
+      background: rgba(34,197,94,.07);
+      border: 1px solid rgba(34,197,94,.17);
+
+      font-size: 8px;
+      font-weight: 900;
+      letter-spacing: .8px;
+    }
+
+    .status-pill::before {
+      content: "";
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: currentColor;
+      box-shadow: 0 0 8px currentColor;
     }
 
     .search-wrapper {
       position: relative;
-      width: 260px;
+      width: 240px;
     }
 
     .search-wrapper i {
       position: absolute;
-      left: 0.9rem;
+      left: 12px;
       top: 50%;
       transform: translateY(-50%);
-      color: #64748b;
-      font-size: 0.85rem;
+      color: #515966;
+      font-size: 11px;
     }
 
     .search-input {
       width: 100%;
-      background: var(--bg-card);
+      height: 36px;
+
+      padding: 0 12px 0 34px;
+
+      background: #080a0e;
       border: 1px solid var(--border);
-      padding: 0.55rem 0.8rem 0.55rem 2.4rem;
-      border-radius: 10px;
-      color: #fff;
-      font-size: 0.82rem;
-      font-weight: 600;
+      border-radius: 7px;
+
       outline: none;
-      transition: all 0.2s ease;
+      color: #fff;
+
+      font-size: 11px;
+      font-weight: 600;
+
+      transition: .2s ease;
+    }
+
+    .search-input::placeholder {
+      color: #515966;
     }
 
     .search-input:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 12px var(--accent-glow);
+      border-color: rgba(168,85,247,.45);
+      box-shadow: 0 0 0 3px rgba(168,85,247,.07);
     }
 
-    /* 5-Column Grid View */
-    .tier-columns {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 0.85rem;
-    }
+    /* =========================
+       OVERALL TABLE
+    ========================= */
 
-    @media (max-width: 1100px) { .tier-columns { grid-template-columns: repeat(3, 1fr); } }
-    @media (max-width: 680px) { .tier-columns { grid-template-columns: 1fr; } }
-
-    .tier-col {
-      background: var(--bg-panel);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 0.65rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.55rem;
-      min-height: 520px;
-    }
-
-    .col-header {
-      padding: 0.65rem;
-      border-radius: 8px;
-      font-weight: 900;
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      text-align: center;
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid var(--border);
-    }
-
-    .col-header.t1 { color: var(--t1); border-color: rgba(251, 191, 36, 0.35); background: rgba(251, 191, 36, 0.08); }
-    .col-header.t2 { color: var(--t2); border-color: rgba(148, 163, 184, 0.35); background: rgba(148, 163, 184, 0.08); }
-    .col-header.t3 { color: var(--t3); border-color: rgba(217, 119, 6, 0.35); background: rgba(217, 119, 6, 0.08); }
-    .col-header.t4 { color: var(--t4); border-color: rgba(56, 189, 248, 0.35); background: rgba(56, 189, 248, 0.08); }
-    .col-header.t5 { color: var(--t5); border-color: rgba(192, 132, 252, 0.35); background: rgba(192, 132, 252, 0.08); }
-
-    .player-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 0.5rem 0.65rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      transition: all 0.15s ease;
-    }
-
-    .player-card:hover {
-      background: var(--bg-card-hover);
-      border-color: var(--border-bright);
-      transform: translateY(-1px);
-    }
-
-    .player-meta {
-      display: flex;
-      align-items: center;
-      gap: 0.55rem;
-      overflow: hidden;
-    }
-
-    .player-head {
-      width: 28px;
-      height: 28px;
-      border-radius: 5px;
-      background: #000;
-      flex-shrink: 0;
-    }
-
-    .player-name {
-      font-size: 0.82rem;
-      font-weight: 700;
-      color: #fff;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .tier-badge {
-      font-size: 0.68rem;
-      font-weight: 900;
-      padding: 0.18rem 0.4rem;
-      border-radius: 5px;
-      letter-spacing: -0.3px;
-    }
-
-    .badge-ht { color: #38bdf8; background: rgba(56, 189, 248, 0.14); border: 1px solid rgba(56, 189, 248, 0.25); }
-    .badge-lt { color: #94a3b8; background: rgba(148, 163, 184, 0.12); border: 1px solid rgba(148, 163, 184, 0.2); }
-
-    .empty-state {
-      text-align: center;
-      color: #64748b;
-      font-size: 0.75rem;
-      font-weight: 700;
-      padding: 2.5rem 0;
-    }
-
-    /* Overall Table View */
     .table-container {
-      background: var(--bg-panel);
+      margin-top: 12px;
+
+      background: rgba(13,16,21,.9);
       border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 1rem;
-      overflow-x: auto;
+      border-radius: 10px;
+
+      overflow: hidden;
     }
 
     .data-table {
       width: 100%;
       border-collapse: collapse;
-      text-align: left;
     }
 
     .data-table th {
-      padding: 0.8rem 1rem;
-      font-size: 0.7rem;
-      font-weight: 800;
-      color: #64748b;
-      text-transform: uppercase;
-      letter-spacing: 0.6px;
+      height: 43px;
+      padding: 0 17px;
+
+      color: #515966;
+      background: rgba(255,255,255,.012);
+
       border-bottom: 1px solid var(--border);
+
+      font-size: 8px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      text-align: left;
     }
 
     .data-table td {
-      padding: 0.75rem 1rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.025);
-      vertical-align: middle;
+      padding: 10px 17px;
+      border-bottom: 1px solid rgba(255,255,255,.025);
     }
 
-    .data-table tr:hover td { background: rgba(255, 255, 255, 0.018); }
+    .data-table tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .data-table tbody tr {
+      transition: .15s ease;
+    }
+
+    .data-table tbody tr:hover {
+      background: rgba(255,255,255,.018);
+    }
 
     .rank-box {
-      font-weight: 900;
-      font-size: 0.85rem;
-      width: 30px;
-      height: 30px;
-      border-radius: 7px;
+      width: 27px;
+      height: 27px;
+
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(255, 255, 255, 0.04);
+
+      border-radius: 6px;
+      background: rgba(255,255,255,.035);
+
+      color: #727b89;
+      font-size: 9px;
+      font-weight: 900;
     }
 
-    .rank-1 { background: var(--t1); color: #000; }
-    .rank-2 { background: var(--t2); color: #000; }
-    .rank-3 { background: var(--t3); color: #fff; }
+    .rank-1 {
+      background: rgba(245,184,61,.14);
+      color: var(--t1);
+      border: 1px solid rgba(245,184,61,.2);
+    }
+
+    .rank-2 {
+      background: rgba(174,183,197,.12);
+      color: var(--t2);
+      border: 1px solid rgba(174,183,197,.18);
+    }
+
+    .rank-3 {
+      background: rgba(216,131,34,.12);
+      color: var(--t3);
+      border: 1px solid rgba(216,131,34,.18);
+    }
 
     .player-row-meta {
       display: flex;
       align-items: center;
-      gap: 0.8rem;
+      gap: 10px;
     }
 
     .player-row-meta img {
-      width: 34px;
-      height: 34px;
-      border-radius: 6px;
+      width: 32px;
+      height: 32px;
+      border-radius: 5px;
+      border: 1px solid rgba(255,255,255,.06);
     }
 
-    .player-row-name { font-weight: 800; font-size: 0.88rem; color: #fff; }
-    .player-row-pts { font-size: 0.72rem; color: #64748b; font-weight: 600; }
+    .player-row-name {
+      color: #e8ebef;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .player-row-pts {
+      margin-top: 2px;
+      color: #555d69;
+      font-size: 8px;
+      font-weight: 700;
+    }
 
     .region-tag {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid var(--border);
-      padding: 0.22rem 0.55rem;
-      border-radius: 5px;
-      font-size: 0.7rem;
-      font-weight: 800;
-      color: #4ade80;
+      display: inline-flex;
+
+      padding: 4px 7px;
+      border-radius: 4px;
+
+      color: #7ee2a0;
+      background: rgba(74,222,128,.055);
+      border: 1px solid rgba(74,222,128,.1);
+
+      font-size: 8px;
+      font-weight: 900;
     }
 
     .chip-container {
       display: flex;
-      gap: 0.4rem;
       flex-wrap: wrap;
+      gap: 5px;
     }
 
     .mode-chip {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      padding: 0.22rem 0.5rem;
-      border-radius: 6px;
-      font-size: 0.7rem;
-      font-weight: 800;
+      height: 25px;
+
       display: flex;
       align-items: center;
-      gap: 0.35rem;
+      gap: 5px;
+
+      padding: 0 7px;
+
+      color: #9ba3af;
+      background: #101319;
+      border: 1px solid rgba(255,255,255,.055);
+      border-radius: 5px;
+
+      font-size: 8px;
+      font-weight: 900;
     }
 
-    .mode-chip img { width: 13px; height: 13px; }
+    .mode-chip img {
+      width: 14px;
+      height: 14px;
+      object-fit: contain;
+    }
+
+    /* =========================
+       TIER GRID
+    ========================= */
+
+    .tier-columns {
+      margin-top: 12px;
+
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 9px;
+    }
+
+    .tier-col {
+      min-height: 500px;
+
+      padding: 7px;
+
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+
+      background: rgba(13,16,21,.9);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+    }
+
+    .col-header {
+      height: 39px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 6px;
+
+      font-size: 9px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+
+      background: rgba(255,255,255,.02);
+      border: 1px solid var(--border);
+    }
+
+    .col-header.t1 {
+      color: var(--t1);
+      background: rgba(245,184,61,.055);
+      border-color: rgba(245,184,61,.16);
+    }
+
+    .col-header.t2 {
+      color: var(--t2);
+      background: rgba(174,183,197,.045);
+      border-color: rgba(174,183,197,.14);
+    }
+
+    .col-header.t3 {
+      color: var(--t3);
+      background: rgba(216,131,34,.05);
+      border-color: rgba(216,131,34,.14);
+    }
+
+    .col-header.t4 {
+      color: var(--t4);
+      background: rgba(67,185,238,.05);
+      border-color: rgba(67,185,238,.14);
+    }
+
+    .col-header.t5 {
+      color: var(--t5);
+      background: rgba(184,120,238,.05);
+      border-color: rgba(184,120,238,.14);
+    }
+
+    .player-card {
+      min-height: 42px;
+      padding: 6px 8px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 7px;
+
+      background: #101319;
+      border: 1px solid rgba(255,255,255,.045);
+      border-radius: 6px;
+
+      transition: .15s ease;
+    }
+
+    .player-card:hover {
+      background: var(--card-hover);
+      border-color: var(--border-hover);
+      transform: translateY(-1px);
+    }
+
+    .player-meta {
+      min-width: 0;
+
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .player-head {
+      width: 27px;
+      height: 27px;
+      flex-shrink: 0;
+
+      border-radius: 4px;
+      background: #050608;
+      border: 1px solid rgba(255,255,255,.05);
+    }
+
+    .player-name {
+      min-width: 0;
+
+      color: #dce1e7;
+      font-size: 9px;
+      font-weight: 800;
+
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .tier-badge {
+      flex-shrink: 0;
+
+      padding: 3px 5px;
+      border-radius: 4px;
+
+      font-size: 7px;
+      font-weight: 900;
+      letter-spacing: .1px;
+    }
+
+    .badge-ht {
+      color: #42baf0;
+      background: rgba(56,189,248,.08);
+      border: 1px solid rgba(56,189,248,.16);
+    }
+
+    .badge-lt {
+      color: #8d98a8;
+      background: rgba(148,163,184,.07);
+      border: 1px solid rgba(148,163,184,.12);
+    }
+
+    .empty-state {
+      padding: 35px 10px;
+      text-align: center;
+
+      color: #454d59;
+      font-size: 9px;
+      font-weight: 800;
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media (max-width: 1050px) {
+      .nav-container {
+        gap: 10px;
+      }
+
+      .brand-name {
+        display: none;
+      }
+
+      .tier-columns {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 700px) {
+      .nav-bar {
+        height: auto;
+      }
+
+      .nav-container {
+        width: calc(100% - 20px);
+        padding: 10px 0;
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .brand {
+        justify-content: center;
+      }
+
+      .brand-name {
+        display: block;
+      }
+
+      .nav-menu {
+        width: 100%;
+        height: 42px;
+      }
+
+      .app-container {
+        width: calc(100% - 20px);
+        padding-top: 12px;
+      }
+
+      .control-panel {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .search-wrapper {
+        width: 100%;
+      }
+
+      .tier-columns {
+        grid-template-columns: 1fr;
+      }
+
+      .tier-col {
+        min-height: 200px;
+      }
+
+      .data-table th:nth-child(3),
+      .data-table td:nth-child(3) {
+        display: none;
+      }
+    }
   </style>
 </head>
+
 <body>
 
   <nav class="nav-bar">
     <div class="nav-container">
+
       <a href="#" class="brand">
-        <img src="logo.png" class="brand-logo" alt="Logo" onerror="this.src='https://mc-heads.net/avatar/MSTEVE/64'">
-        <span class="brand-name" id="guildName">Halo Tiers Network</span>
+        <img
+          src="logo.png"
+          class="brand-logo"
+          alt="Logo"
+          onerror="this.src='https://mc-heads.net/avatar/MSTEVE/64'"
+        >
+
+        <span class="brand-name" id="guildName">
+          Halo Tiers Network
+        </span>
       </a>
 
       <div class="nav-menu">
+
         <button class="nav-btn active" onclick="switchView('overall', this)">
-          <i class="fa-solid fa-trophy" style="color: #fbbf24;"></i> OVERALL
+          <i class="fa-solid fa-trophy" style="color:#f5b83d;"></i>
+          OVERALL
         </button>
+
         <button class="nav-btn" onclick="switchView('vanilla', this)">
-          <img src="https://solacetiers.com/static/tier_icons/vanilla.png" alt="Vanilla"> VANILLA
+          <img src="https://solacetiers.com/static/tier_icons/vanilla.png">
+          VANILLA
         </button>
+
         <button class="nav-btn" onclick="switchView('sword', this)">
-          <img src="https://solacetiers.com/static/tier_icons/sword.png" alt="Sword"> SWORD
+          <img src="https://solacetiers.com/static/tier_icons/sword.png">
+          SWORD
         </button>
+
         <button class="nav-btn" onclick="switchView('pot', this)">
-          <img src="https://solacetiers.com/static/tier_icons/pot.png" alt="Pot"> POT
+          <img src="https://solacetiers.com/static/tier_icons/pot.png">
+          POT
         </button>
+
         <button class="nav-btn" onclick="switchView('uhc', this)">
-          <img src="https://solacetiers.com/static/tier_icons/uhc.png" alt="UHC"> UHC
+          <img src="https://solacetiers.com/static/tier_icons/uhc.png">
+          UHC
         </button>
+
         <button class="nav-btn" onclick="switchView('nethpot', this)">
-          <img src="https://solacetiers.com/static/tier_icons/netherite.png" alt="Nethpot"> NETHPOT
+          <img src="https://solacetiers.com/static/tier_icons/netherite.png">
+          NETHPOT
         </button>
+
         <button class="nav-btn" onclick="switchView('smp', this)">
-          <img src="https://solacetiers.com/static/tier_icons/smp.png" alt="SMP"> SMP
+          <img src="https://solacetiers.com/static/tier_icons/smp.png">
+          SMP
         </button>
+
         <button class="nav-btn" onclick="switchView('axe', this)">
-          <img src="https://solacetiers.com/static/tier_icons/axe.png" alt="Axe"> AXE
+          <img src="https://solacetiers.com/static/tier_icons/axe.png">
+          AXE
         </button>
+
         <button class="nav-btn" onclick="switchView('mace', this)">
-          <i class="fa-solid fa-hammer" style="color: #94a3b8;"></i> MACE
+          <i class="fa-solid fa-hammer" style="color:#94a3b8;"></i>
+          MACE
         </button>
+
       </div>
     </div>
   </nav>
 
-  <div class="app-container">
+
+  <main class="app-container">
 
     <div class="control-panel">
+
       <div class="title-group">
-        <div class="view-title" id="viewTitle">Overall Leaderboard</div>
-        <div class="status-pill" id="statusPill">ONLINE</div>
+        <div class="view-title" id="viewTitle">
+          Overall Leaderboard
+        </div>
+
+        <div class="status-pill" id="statusPill">
+          ONLINE
+        </div>
       </div>
 
       <div class="search-wrapper">
         <i class="fa-solid fa-magnifying-glass"></i>
-        <input type="text" id="searchInput" class="search-input" placeholder="Search player..." oninput="handleSearch()">
+
+        <input
+          type="text"
+          id="searchInput"
+          class="search-input"
+          placeholder="Search player..."
+          oninput="handleSearch()"
+        >
       </div>
+
     </div>
 
+
     <div id="overallView" class="table-container">
+
       <table class="data-table">
+
         <thead>
           <tr>
-            <th style="width: 45px;">#</th>
+            <th style="width:55px;">#</th>
             <th>Player</th>
             <th>Region</th>
             <th>Tier Breakdowns</th>
           </tr>
         </thead>
+
         <tbody id="overallRows"></tbody>
+
       </table>
+
     </div>
 
-    <div id="gamemodeView" class="tier-columns" style="display: none;"></div>
 
-  </div>
+    <div
+      id="gamemodeView"
+      class="tier-columns"
+      style="display:none;"
+    ></div>
+
+  </main>
+
 
   <script>
-    // Configured with AllOrigins proxy
-    const BOT_API_URL = 'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://halotiers.wispbyte.app/api/tiers');
-    
+
+    const BOT_API_URL =
+      'https://api.allorigins.win/raw?url=' +
+      encodeURIComponent('https://halotiers.wispbyte.app/api/tiers');
+
     let globalPlayerData = [];
     let currentMode = 'overall';
 
     const POINT_VALUES = {
-      'HT1': 60, 'LT1': 45,
-      'HT2': 30, 'LT2': 20,
-      'HT3': 10, 'LT3': 6,
-      'HT4': 4,  'LT4': 3,
-      'HT5': 2,  'LT5': 1
+      'HT1': 60,
+      'LT1': 45,
+      'HT2': 30,
+      'LT2': 20,
+      'HT3': 10,
+      'LT3': 6,
+      'HT4': 4,
+      'LT4': 3,
+      'HT5': 2,
+      'LT5': 1
     };
+
 
     function calculatePoints(tierString) {
       if (!tierString) return 0;
-      return POINT_VALUES[tierString.trim().toUpperCase()] || 0;
+
+      return POINT_VALUES[
+        tierString.trim().toUpperCase()
+      ] || 0;
     }
+
 
     function calculateTotalPoints(tiersList) {
       if (!Array.isArray(tiersList)) return 0;
-      return tiersList.reduce((sum, item) => sum + calculatePoints(item.tier), 0);
+
+      return tiersList.reduce(
+        (sum, item) =>
+          sum + calculatePoints(item.tier),
+        0
+      );
     }
 
+
     async function fetchTierData() {
+
       try {
+
         const res = await fetch(BOT_API_URL);
         const json = await res.json();
 
         if (json.guild) {
-          document.getElementById('guildName').innerText = json.guild.toUpperCase();
+          document.getElementById('guildName').innerText =
+            json.guild.toUpperCase();
         }
 
-        const rawPlayers = json.players || json.data || json;
+        const rawPlayers =
+          json.players ||
+          json.data ||
+          json;
+
 
         if (Array.isArray(rawPlayers)) {
+
           globalPlayerData = rawPlayers.map(p => {
-            const tierVal = p.tier || 'LT5';
-            const modeVal = p.mode || 'vanilla';
-            const tiersList = p.tiersList || [{ mode: modeVal, tier: tierVal }];
-            const totalPts = p.pts !== undefined ? p.pts : calculateTotalPoints(tiersList);
+
+            const tierVal =
+              p.tier || 'LT5';
+
+            const modeVal =
+              p.mode || 'vanilla';
+
+            const tiersList =
+              p.tiersList ||
+              [{
+                mode: modeVal,
+                tier: tierVal
+              }];
+
+            const totalPts =
+              p.pts !== undefined
+                ? p.pts
+                : calculateTotalPoints(tiersList);
 
             return {
-              name: p.ign || p.discord || 'Unknown',
+              name:
+                p.ign ||
+                p.discord ||
+                'Unknown',
+
               pts: totalPts,
-              region: p.region || 'NA',
+
+              region:
+                p.region ||
+                'NA',
+
               tier: tierVal,
+
               mode: modeVal,
+
               tiersList: tiersList
             };
+
           });
+
         } else {
-          globalPlayerData = Object.entries(rawPlayers).map(([id, p]) => {
-            const tierVal = typeof p === 'string' ? p : (p.tier || 'LT5');
-            const modeVal = p.mode || 'vanilla';
-            const tiersList = p.tiersList || [{ mode: modeVal, tier: tierVal }];
-            const totalPts = p.points !== undefined ? p.points : calculateTotalPoints(tiersList);
 
-            return {
-              name: p.username || p.ign || id,
-              pts: totalPts,
-              region: p.region || 'NA',
-              tier: tierVal,
-              mode: modeVal,
-              tiersList: tiersList
-            };
-          });
+          globalPlayerData =
+            Object.entries(rawPlayers).map(
+              ([id, p]) => {
+
+                const tierVal =
+                  typeof p === 'string'
+                    ? p
+                    : (p.tier || 'LT5');
+
+                const modeVal =
+                  p.mode || 'vanilla';
+
+                const tiersList =
+                  p.tiersList ||
+                  [{
+                    mode: modeVal,
+                    tier: tierVal
+                  }];
+
+                const totalPts =
+                  p.points !== undefined
+                    ? p.points
+                    : calculateTotalPoints(tiersList);
+
+                return {
+                  name:
+                    p.username ||
+                    p.ign ||
+                    id,
+
+                  pts: totalPts,
+
+                  region:
+                    p.region ||
+                    'NA',
+
+                  tier: tierVal,
+
+                  mode: modeVal,
+
+                  tiersList: tiersList
+                };
+
+              }
+            );
         }
 
-        globalPlayerData.sort((a, b) => b.pts - a.pts);
+
+        globalPlayerData.sort(
+          (a, b) => b.pts - a.pts
+        );
+
         renderCurrentView();
 
       } catch (err) {
-        console.error('API Load Error:', err);
-        const pill = document.getElementById('statusPill');
-        pill.innerText = 'OFFLINE';
-        pill.style.color = '#f87171';
-        pill.style.borderColor = 'rgba(248, 113, 113, 0.3)';
-        pill.style.background = 'rgba(248, 113, 113, 0.1)';
 
-        document.getElementById('overallRows').innerHTML = `
-          <tr><td colspan="4" class="empty-state">Failed to fetch data via proxy. Please check backend.</td></tr>
+        console.error(
+          'API Load Error:',
+          err
+        );
+
+        const pill =
+          document.getElementById(
+            'statusPill'
+          );
+
+        pill.innerText = 'OFFLINE';
+
+        pill.style.color = '#f87171';
+
+        pill.style.borderColor =
+          'rgba(248,113,113,.3)';
+
+        pill.style.background =
+          'rgba(248,113,113,.08)';
+
+        document.getElementById(
+          'overallRows'
+        ).innerHTML = `
+          <tr>
+            <td colspan="4" class="empty-state">
+              Failed to fetch tier data.
+            </td>
+          </tr>
         `;
       }
     }
 
-    function renderOverall(filterQuery = '') {
-      const tbody = document.getElementById('overallRows');
+
+    function renderOverall(
+      filterQuery = ''
+    ) {
+
+      const tbody =
+        document.getElementById(
+          'overallRows'
+        );
+
       tbody.innerHTML = '';
 
-      let filtered = globalPlayerData;
+      let filtered =
+        globalPlayerData;
+
+
       if (filterQuery) {
-        filtered = filtered.filter(p => p.name.toLowerCase().includes(filterQuery.toLowerCase()));
+
+        filtered =
+          filtered.filter(p =>
+            p.name
+              .toLowerCase()
+              .includes(
+                filterQuery.toLowerCase()
+              )
+          );
       }
 
-      if (filtered.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="4" class="empty-state">No matching players found</td></tr>`;
+
+      if (!filtered.length) {
+
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="4"
+                class="empty-state">
+              No matching players found
+            </td>
+          </tr>
+        `;
+
         return;
       }
 
-      filtered.slice(0, 100).forEach((player, idx) => {
-        const rank = idx + 1;
-        const rClass = rank === 1 ? 'rank-1' : rank === 2 ? 'rank-2' : rank === 3 ? 'rank-3' : '';
 
-        let chipsHtml = player.tiersList.map(t => `
-          <div class="mode-chip">
-            <img src="https://solacetiers.com/static/tier_icons/${t.mode}.png" onerror="this.style.display='none'">
-            <span>${t.tier}</span>
-          </div>
-        `).join('');
+      filtered
+        .slice(0, 100)
+        .forEach((player, idx) => {
 
-        tbody.innerHTML += `
-          <tr>
-            <td><div class="rank-box ${rClass}">${rank}</div></td>
-            <td>
-              <div class="player-row-meta">
-                <img class="pixelated" src="https://mc-heads.net/avatar/${player.name}/64" onerror="this.src='https://mc-heads.net/avatar/MSTEVE/64'">
-                <div>
-                  <div class="player-row-name">${player.name}</div>
-                  <div class="player-row-pts">${player.pts} points</div>
+          const rank =
+            idx + 1;
+
+          const rClass =
+            rank === 1
+              ? 'rank-1'
+              : rank === 2
+                ? 'rank-2'
+                : rank === 3
+                  ? 'rank-3'
+                  : '';
+
+
+          let chipsHtml =
+            player.tiersList
+              .map(t => `
+
+                <div class="mode-chip">
+
+                  <img
+                    src="https://solacetiers.com/static/tier_icons/${t.mode}.png"
+                    onerror="this.style.display='none'"
+                  >
+
+                  <span>
+                    ${t.tier}
+                  </span>
+
                 </div>
-              </div>
-            </td>
-            <td><span class="region-tag">${player.region}</span></td>
-            <td><div class="chip-container">${chipsHtml}</div></td>
-          </tr>
-        `;
-      });
+
+              `)
+              .join('');
+
+
+          tbody.innerHTML += `
+
+            <tr>
+
+              <td>
+                <div class="rank-box ${rClass}">
+                  ${rank}
+                </div>
+              </td>
+
+
+              <td>
+
+                <div class="player-row-meta">
+
+                  <img
+                    class="pixelated"
+                    src="https://mc-heads.net/avatar/${player.name}/64"
+                    onerror="this.src='https://mc-heads.net/avatar/MSTEVE/64'"
+                  >
+
+                  <div>
+
+                    <div class="player-row-name">
+                      ${player.name}
+                    </div>
+
+                    <div class="player-row-pts">
+                      ${player.pts} points
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </td>
+
+
+              <td>
+                <span class="region-tag">
+                  ${player.region}
+                </span>
+              </td>
+
+
+              <td>
+                <div class="chip-container">
+                  ${chipsHtml}
+                </div>
+              </td>
+
+            </tr>
+
+          `;
+        });
     }
 
-    function renderGamemodeColumns(modeName, filterQuery = '') {
-      const grid = document.getElementById('gamemodeView');
+
+    function renderGamemodeColumns(
+      modeName,
+      filterQuery = ''
+    ) {
+
+      const grid =
+        document.getElementById(
+          'gamemodeView'
+        );
+
       grid.innerHTML = '';
 
+
       const tierHeaders = [
-        { title: 'Tier 1', class: 't1' },
-        { title: 'Tier 2', class: 't2' },
-        { title: 'Tier 3', class: 't3' },
-        { title: 'Tier 4', class: 't4' },
-        { title: 'Tier 5', class: 't5' }
-      ];
 
-      let modePlayers = globalPlayerData.filter(p => p.mode.toLowerCase() === modeName.toLowerCase());
-      if (filterQuery) {
-        modePlayers = modePlayers.filter(p => p.name.toLowerCase().includes(filterQuery.toLowerCase()));
-      }
+        {
+          title: 'Tier 1',
+          class: 't1'
+        },
 
-      tierHeaders.forEach((t, idx) => {
-        const colNum = idx + 1;
-        const colPlayers = modePlayers.filter(p => p.tier.includes(colNum.toString()));
+        {
+          title: 'Tier 2',
+          class: 't2'
+        },
 
-        let cardsHtml = '';
-        if (colPlayers.length === 0) {
-          cardsHtml = `<div class="empty-state">No Players</div>`;
-        } else {
-          colPlayers.forEach(player => {
-            const isHT = player.tier.toUpperCase().startsWith('HT');
-            const badgeClass = isHT ? 'badge-ht' : 'badge-lt';
+        {
+          title: 'Tier 3',
+          class: 't3'
+        },
 
-            cardsHtml += `
-              <div class="player-card">
-                <div class="player-meta">
-                  <img class="player-head pixelated" src="https://mc-heads.net/avatar/${player.name}/64" onerror="this.src='https://mc-heads.net/avatar/MSTEVE/64'">
-                  <span class="player-name">${player.name}</span>
-                </div>
-                <span class="tier-badge ${badgeClass}">${player.tier}</span>
-              </div>
-            `;
-          });
+        {
+          title: 'Tier 4',
+          class: 't4'
+        },
+
+        {
+          title: 'Tier 5',
+          class: 't5'
         }
 
-        grid.innerHTML += `
-          <div class="tier-col">
-            <div class="col-header ${t.class}">${t.title}</div>
-            ${cardsHtml}
-          </div>
-        `;
-      });
+      ];
+
+
+      let modePlayers =
+        globalPlayerData.filter(
+          p =>
+            p.mode.toLowerCase() ===
+            modeName.toLowerCase()
+        );
+
+
+      if (filterQuery) {
+
+        modePlayers =
+          modePlayers.filter(
+            p =>
+              p.name
+                .toLowerCase()
+                .includes(
+                  filterQuery.toLowerCase()
+                )
+          );
+      }
+
+
+      tierHeaders.forEach(
+        (t, idx) => {
+
+          const colNum =
+            idx + 1;
+
+          const colPlayers =
+            modePlayers.filter(
+              p =>
+                p.tier.includes(
+                  colNum.toString()
+                )
+            );
+
+
+          let cardsHtml = '';
+
+
+          if (!colPlayers.length) {
+
+            cardsHtml = `
+              <div class="empty-state">
+                No Players
+              </div>
+            `;
+
+          } else {
+
+            colPlayers.forEach(
+              player => {
+
+                const isHT =
+                  player.tier
+                    .toUpperCase()
+                    .startsWith('HT');
+
+                const badgeClass =
+                  isHT
+                    ? 'badge-ht'
+                    : 'badge-lt';
+
+
+                cardsHtml += `
+
+                  <div class="player-card">
+
+                    <div class="player-meta">
+
+                      <img
+                        class="player-head pixelated"
+                        src="https://mc-heads.net/avatar/${player.name}/64"
+                        onerror="this.src='https://mc-heads.net/avatar/MSTEVE/64'"
+                      >
+
+                      <span class="player-name">
+                        ${player.name}
+                      </span>
+
+                    </div>
+
+                    <span class="tier-badge ${badgeClass}">
+                      ${player.tier}
+                    </span>
+
+                  </div>
+
+                `;
+              }
+            );
+          }
+
+
+          grid.innerHTML += `
+
+            <div class="tier-col">
+
+              <div class="col-header ${t.class}">
+                ${t.title}
+              </div>
+
+              ${cardsHtml}
+
+            </div>
+
+          `;
+        }
+      );
     }
 
-    function switchView(mode, tabElem) {
-      document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-      tabElem.classList.add('active');
+
+    function switchView(
+      mode,
+      tabElem
+    ) {
+
+      document
+        .querySelectorAll('.nav-btn')
+        .forEach(
+          btn =>
+            btn.classList.remove(
+              'active'
+            )
+        );
+
+
+      tabElem.classList.add(
+        'active'
+      );
+
 
       currentMode = mode;
-      document.getElementById('searchInput').value = '';
 
-      const title = document.getElementById('viewTitle');
-      const overall = document.getElementById('overallView');
-      const gamemode = document.getElementById('gamemodeView');
+
+      document.getElementById(
+        'searchInput'
+      ).value = '';
+
+
+      const title =
+        document.getElementById(
+          'viewTitle'
+        );
+
+      const overall =
+        document.getElementById(
+          'overallView'
+        );
+
+      const gamemode =
+        document.getElementById(
+          'gamemodeView'
+        );
+
 
       if (mode === 'overall') {
-        title.innerText = 'Overall Leaderboard';
-        overall.style.display = 'block';
-        gamemode.style.display = 'none';
+
+        title.innerText =
+          'Overall Leaderboard';
+
+        overall.style.display =
+          'block';
+
+        gamemode.style.display =
+          'none';
+
       } else {
-        title.innerText = `${mode.toUpperCase()} Rankings`;
-        overall.style.display = 'none';
-        gamemode.style.display = 'grid';
+
+        title.innerText =
+          `${mode.toUpperCase()} Rankings`;
+
+        overall.style.display =
+          'none';
+
+        gamemode.style.display =
+          'grid';
       }
+
 
       renderCurrentView();
     }
 
+
     function renderCurrentView() {
-      const query = document.getElementById('searchInput').value.trim();
-      if (currentMode === 'overall') {
+
+      const query =
+        document
+          .getElementById(
+            'searchInput'
+          )
+          .value
+          .trim();
+
+
+      if (
+        currentMode ===
+        'overall'
+      ) {
+
         renderOverall(query);
+
       } else {
-        renderGamemodeColumns(currentMode, query);
+
+        renderGamemodeColumns(
+          currentMode,
+          query
+        );
       }
     }
+
 
     function handleSearch() {
       renderCurrentView();
     }
 
+
     fetchTierData();
+
   </script>
+
 </body>
 </html>
