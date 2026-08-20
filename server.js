@@ -1,36 +1,19 @@
 const express = require('express');
-const cors = require('cors');
 const app = express();
 
-// Enable CORS explicitly for all origins and headers BEFORE defining routes
-app.use(cors({
-    origin: '*', 
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-}));
+// Manual CORS Middleware - Paste this right after app initialization
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  
+  // Instantly handle preflight OPTIONS checks
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200);
+  }
+  next();
+});
 
 app.use(express.json());
 
-let ticketDatabase = [];
-
-app.post('/api/sync', (req, res) => {
-    if (Array.isArray(req.body)) {
-        ticketDatabase = req.body;
-    } else {
-        ticketDatabase.push(req.body); 
-    }
-    console.log("🚨 NEW TICKET SAVED:", req.body);
-    res.status(200).send({ message: "Data received loud and clear!" });
-});
-
-app.get('/api/tiers', (req, res) => {
-    res.json(ticketDatabase); 
-});
-
-app.get('/api/data', (req, res) => {
-    res.json(ticketDatabase); 
-});
-
-app.listen(8000, () => {
-    console.log("Website backend is running on port 8000!");
-});
+// ... rest of your routes (post /api/sync, get /api/tiers, etc.)
