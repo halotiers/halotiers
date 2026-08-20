@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -231,7 +231,7 @@
   <div class="container">
     <div class="header-panel">
       <div class="logo-container">
-        <img src="logo.png" alt="Halo Tiers Logo">
+        <img src="logo.png" alt="Halo Tiers Logo" onerror="this.src='https://mc-heads.net/avatar/MSTEVE/80'">
       </div>
       <div class="header-sub">HALO TIERS NETWORK</div>
       <div class="header-title">Overall Rankings</div>
@@ -274,7 +274,7 @@
     <div class="content-panel">
       <div class="panel-top">
         <div class="panel-title" id="panelTitle">Top 100 overall players</div>
-        <div class="status-badge">STATUS: COMING SOON</div>
+        <div class="status-badge">STATUS: ONLINE</div>
       </div>
 
       <div id="overallView">
@@ -296,7 +296,8 @@
   </div>
 
   <script>
-    const BOT_API_URL = 'http://YOUR_WISPYBYTE_IP:PORT/api/players';
+    // Live PandaStack API Endpoint
+    const BOT_API_URL = 'https://577bc9b4-3507-4d19-b420-d50a8f662a6b.pandastack.ai/api/sync';
     let globalPlayerData = [];
 
     const POINT_VALUES = {
@@ -321,36 +322,37 @@
     async function fetchWispyByteData() {
       try {
         const res = await fetch(BOT_API_URL);
-        const data = await res.json();
+        const json = await res.json();
         
+        // Extract player payload object
+        const data = json.data || json;
+
         globalPlayerData = Object.entries(data).map(([id, p]) => {
-          const tiersList = p.tiersList || [{ mode: p.mode || 'vanilla', tier: p.tier || 'LT5' }];
+          const tierVal = typeof p === 'string' ? p : (p.tier || 'LT5');
+          const modeVal = p.mode || 'vanilla';
+          const tiersList = p.tiersList || [{ mode: modeVal, tier: tierVal }];
           const totalPts = p.points !== undefined ? p.points : calculateTotalPoints(tiersList);
 
           return {
             name: p.username || id,
             pts: totalPts,
             region: p.region || 'NA',
-            tier: p.tier || 'LT5',
-            mode: p.mode || 'vanilla',
+            tier: tierVal,
+            mode: modeVal,
             tiersList: tiersList
           };
         });
 
-        globalPlayerData.sort((a, b) => {
-          if (b.pts !== a.pts) {
-            return b.pts - a.pts;
-          }
-          return Math.random() - 0.5;
-        });
+        globalPlayerData.sort((a, b) => b.pts - a.pts);
 
         document.getElementById('playerCount').innerText = globalPlayerData.length.toLocaleString();
         renderOverall();
       } catch (err) {
+        console.error('API Error:', err);
         document.getElementById('overallRows').innerHTML = `
           <tr>
             <td colspan="4" style="text-align:center; padding: 2.5rem; color: var(--text-muted); font-weight: 700;">
-              No player data available. Connect your WispyByte API endpoint.
+              No player data available. Connect your Discord bot to sync data.
             </td>
           </tr>
         `;
@@ -361,7 +363,16 @@
       const tbody = document.getElementById('overallRows');
       tbody.innerHTML = '';
 
-      if (globalPlayerData.length === 0) return;
+      if (globalPlayerData.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="4" style="text-align:center; padding: 2.5rem; color: var(--text-muted); font-weight: 700;">
+              No player data available.
+            </td>
+          </tr>
+        `;
+        return;
+      }
 
       const top100 = globalPlayerData.slice(0, 100);
 
