@@ -3,283 +3,273 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Halo Tiers Network | Tierlist & Rankings</title>
+  <title>Halo Tiers Network</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-dark: #08090c;
-      --bg-panel: #0e1117;
-      --bg-card: #151921;
-      --bg-card-hover: #1c222e;
-      --border-color: rgba(255, 255, 255, 0.08);
-      --border-accent: rgba(255, 255, 255, 0.15);
+      --bg-main: #050608;
+      --bg-panel: #0a0c10;
+      --bg-card: #11141c;
+      --bg-card-hover: #171b26;
+      --border: rgba(255, 255, 255, 0.07);
+      --border-bright: rgba(255, 255, 255, 0.16);
       
-      --text-main: #f3f4f6;
-      --text-muted: #9ca3af;
-      --accent-purple: #9333ea;
+      --accent: #a855f7;
+      --accent-glow: rgba(168, 85, 247, 0.25);
       
-      --t1-color: #f59e0b;
-      --t2-color: #94a3b8;
-      --t3-color: #d97706;
-      --t4-color: #38bdf8;
-      --t5-color: #a855f7;
+      --t1: #fbbf24;
+      --t2: #94a3b8;
+      --t3: #d97706;
+      --t4: #38bdf8;
+      --t5: #c084fc;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
 
     body {
-      background: var(--bg-dark);
-      color: var(--text-main);
+      background: var(--bg-main);
+      color: #f1f5f9;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding-bottom: 3rem;
+      padding-bottom: 4rem;
     }
 
-    /* Pixelated avatar rendering (Fixes blurry Steve/Skin faces) */
     .pixelated {
       image-rendering: pixelated;
-      image-rendering: -moz-crisp-edges;
       image-rendering: crisp-edges;
     }
 
-    /* Navigation Bar */
-    .navbar {
+    /* Header Nav */
+    .nav-bar {
       width: 100%;
-      background: var(--bg-panel);
-      border-bottom: 1px solid var(--border-color);
-      display: flex;
-      justify-content: center;
+      background: rgba(10, 12, 16, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
       position: sticky;
       top: 0;
       z-index: 100;
+      display: flex;
+      justify-content: center;
     }
 
-    .navbar-container {
+    .nav-container {
       width: 100%;
-      max-width: 1300px;
-      padding: 0.75rem 1.5rem;
+      max-width: 1350px;
+      padding: 0.8rem 1.5rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 1rem;
+      gap: 1.5rem;
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 0.8rem;
+      gap: 0.75rem;
       text-decoration: none;
-      color: #fff;
     }
 
     .brand-logo {
-      width: 38px;
-      height: 38px;
-      border-radius: 8px;
-      border: 1px solid var(--border-accent);
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      border: 1px solid var(--border-bright);
+      box-shadow: 0 0 15px var(--accent-glow);
       object-fit: cover;
     }
 
-    .brand-text {
+    .brand-name {
       font-weight: 900;
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       letter-spacing: -0.5px;
+      color: #fff;
       text-transform: uppercase;
-      background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
     }
 
-    .nav-links {
+    .nav-menu {
       display: flex;
-      gap: 0.3rem;
+      gap: 0.35rem;
       overflow-x: auto;
+      padding: 0.2rem 0;
     }
 
-    .nav-tab {
+    .nav-btn {
       background: transparent;
       border: 1px solid transparent;
-      color: var(--text-muted);
-      padding: 0.5rem 0.85rem;
+      color: #94a3b8;
+      padding: 0.55rem 0.9rem;
       border-radius: 8px;
-      font-weight: 700;
-      font-size: 0.8rem;
+      font-weight: 800;
+      font-size: 0.78rem;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 0.4rem;
-      transition: all 0.15s ease;
+      gap: 0.45rem;
+      transition: all 0.2s ease;
       white-space: nowrap;
     }
 
-    .nav-tab img { width: 16px; height: 16px; object-fit: contain; }
-    .nav-tab.active { background: rgba(255, 255, 255, 0.08); border-color: var(--border-accent); color: #fff; }
-    .nav-tab:hover:not(.active) { color: #fff; background: rgba(255, 255, 255, 0.04); }
+    .nav-btn img { width: 16px; height: 16px; object-fit: contain; }
+    .nav-btn.active { background: var(--bg-card); border-color: var(--border-bright); color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+    .nav-btn:hover:not(.active) { color: #fff; background: rgba(255, 255, 255, 0.03); }
 
-    /* Main Container */
-    .main-container {
+    /* Layout Container */
+    .app-container {
       width: 100%;
-      max-width: 1300px;
-      padding: 1.5rem;
+      max-width: 1350px;
+      padding: 1.8rem 1.5rem;
       display: flex;
       flex-direction: column;
-      gap: 1.2rem;
+      gap: 1.25rem;
     }
 
-    /* Subheader & Stats Toolbar */
-    .sub-toolbar {
+    /* Sub-bar / Control Panel */
+    .control-panel {
       display: flex;
       justify-content: space-between;
       align-items: center;
       background: var(--bg-panel);
-      border: 1px solid var(--border-color);
-      padding: 1rem 1.5rem;
-      border-radius: 12px;
+      border: 1px solid var(--border);
+      padding: 1rem 1.4rem;
+      border-radius: 14px;
       flex-wrap: wrap;
       gap: 1rem;
     }
 
-    .page-info {
+    .title-group {
       display: flex;
       align-items: center;
       gap: 0.8rem;
     }
 
-    .page-title {
-      font-size: 1.25rem;
-      font-weight: 800;
+    .view-title {
+      font-size: 1.3rem;
+      font-weight: 900;
       color: #fff;
+      letter-spacing: -0.3px;
     }
 
-    .badge-status {
-      background: rgba(34, 197, 94, 0.1);
-      border: 1px solid rgba(34, 197, 94, 0.25);
+    .status-pill {
+      background: rgba(34, 197, 94, 0.12);
+      border: 1px solid rgba(34, 197, 94, 0.3);
       color: #4ade80;
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       font-weight: 800;
-      padding: 0.25rem 0.6rem;
-      border-radius: 6px;
+      padding: 0.25rem 0.65rem;
+      border-radius: 20px;
       letter-spacing: 0.5px;
     }
 
-    .search-box {
+    .search-wrapper {
       position: relative;
-      width: 240px;
+      width: 260px;
     }
 
-    .search-box i {
+    .search-wrapper i {
       position: absolute;
-      left: 0.8rem;
+      left: 0.9rem;
       top: 50%;
       transform: translateY(-50%);
-      color: var(--text-muted);
+      color: #64748b;
       font-size: 0.85rem;
     }
 
     .search-input {
       width: 100%;
       background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      padding: 0.45rem 0.8rem 0.45rem 2.2rem;
-      border-radius: 8px;
+      border: 1px solid var(--border);
+      padding: 0.55rem 0.8rem 0.55rem 2.4rem;
+      border-radius: 10px;
       color: #fff;
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       font-weight: 600;
       outline: none;
-      transition: border-color 0.15s ease;
+      transition: all 0.2s ease;
     }
 
     .search-input:focus {
-      border-color: var(--accent-purple);
+      border-color: var(--accent);
+      box-shadow: 0 0 12px var(--accent-glow);
     }
 
-    /* Gamemode Tier Grid (5 Columns) */
-    .tier-grid {
+    /* 5-Column Grid View */
+    .tier-columns {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
-      gap: 0.75rem;
+      gap: 0.85rem;
     }
 
-    @media (max-width: 1024px) {
-      .tier-grid { grid-template-columns: repeat(3, 1fr); }
-    }
-    @media (max-width: 640px) {
-      .tier-grid { grid-template-columns: 1fr; }
-    }
+    @media (max-width: 1100px) { .tier-columns { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 680px) { .tier-columns { grid-template-columns: 1fr; } }
 
-    .tier-column {
+    .tier-col {
       background: var(--bg-panel);
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
-      padding: 0.6rem;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.65rem;
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
-      min-height: 500px;
+      gap: 0.55rem;
+      min-height: 520px;
     }
 
-    .tier-header {
-      padding: 0.6rem;
-      border-radius: 6px;
-      font-weight: 800;
+    .col-header {
+      padding: 0.65rem;
+      border-radius: 8px;
+      font-weight: 900;
       font-size: 0.85rem;
       text-transform: uppercase;
       letter-spacing: 0.5px;
       text-align: center;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.4rem;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--border-color);
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border);
     }
 
-    .tier-header.t1 { color: var(--t1-color); border-color: rgba(245, 158, 11, 0.3); background: rgba(245, 158, 11, 0.08); }
-    .tier-header.t2 { color: var(--t2-color); border-color: rgba(148, 163, 184, 0.3); background: rgba(148, 163, 184, 0.08); }
-    .tier-header.t3 { color: var(--t3-color); border-color: rgba(217, 119, 6, 0.3); background: rgba(217, 119, 6, 0.08); }
-    .tier-header.t4 { color: var(--t4-color); border-color: rgba(56, 189, 248, 0.3); background: rgba(56, 189, 248, 0.08); }
-    .tier-header.t5 { color: var(--t5-color); border-color: rgba(168, 85, 247, 0.3); background: rgba(168, 85, 247, 0.08); }
+    .col-header.t1 { color: var(--t1); border-color: rgba(251, 191, 36, 0.35); background: rgba(251, 191, 36, 0.08); }
+    .col-header.t2 { color: var(--t2); border-color: rgba(148, 163, 184, 0.35); background: rgba(148, 163, 184, 0.08); }
+    .col-header.t3 { color: var(--t3); border-color: rgba(217, 119, 6, 0.35); background: rgba(217, 119, 6, 0.08); }
+    .col-header.t4 { color: var(--t4); border-color: rgba(56, 189, 248, 0.35); background: rgba(56, 189, 248, 0.08); }
+    .col-header.t5 { color: var(--t5); border-color: rgba(192, 132, 252, 0.35); background: rgba(192, 132, 252, 0.08); }
 
-    /* Player Cards inside Tier Columns */
     .player-card {
       background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      padding: 0.45rem 0.6rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.5rem 0.65rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      transition: background 0.15s ease, transform 0.1s ease;
+      transition: all 0.15s ease;
     }
 
     .player-card:hover {
       background: var(--bg-card-hover);
-      border-color: var(--border-accent);
+      border-color: var(--border-bright);
       transform: translateY(-1px);
     }
 
-    .player-info {
+    .player-meta {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.55rem;
       overflow: hidden;
     }
 
     .player-head {
-      width: 26px;
-      height: 26px;
-      border-radius: 4px;
+      width: 28px;
+      height: 28px;
+      border-radius: 5px;
       background: #000;
       flex-shrink: 0;
     }
 
     .player-name {
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       font-weight: 700;
       color: #fff;
       white-space: nowrap;
@@ -287,214 +277,197 @@
       text-overflow: ellipsis;
     }
 
-    .tier-tag {
-      font-size: 0.7rem;
+    .tier-badge {
+      font-size: 0.68rem;
       font-weight: 900;
-      padding: 0.15rem 0.35rem;
-      border-radius: 4px;
-      background: rgba(255, 255, 255, 0.05);
-      letter-spacing: -0.5px;
+      padding: 0.18rem 0.4rem;
+      border-radius: 5px;
+      letter-spacing: -0.3px;
     }
 
-    .tag-ht { color: #38bdf8; background: rgba(56, 189, 248, 0.12); }
-    .tag-lt { color: #94a3b8; background: rgba(148, 163, 184, 0.1); }
+    .badge-ht { color: #38bdf8; background: rgba(56, 189, 248, 0.14); border: 1px solid rgba(56, 189, 248, 0.25); }
+    .badge-lt { color: #94a3b8; background: rgba(148, 163, 184, 0.12); border: 1px solid rgba(148, 163, 184, 0.2); }
 
-    .empty-msg {
+    .empty-state {
       text-align: center;
-      color: var(--text-muted);
+      color: #64748b;
       font-size: 0.75rem;
-      font-weight: 600;
-      padding: 2rem 0;
+      font-weight: 700;
+      padding: 2.5rem 0;
     }
 
     /* Overall Table View */
-    .table-wrapper {
+    .table-container {
       background: var(--bg-panel);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
       padding: 1rem;
       overflow-x: auto;
     }
 
-    .mct-table {
+    .data-table {
       width: 100%;
       border-collapse: collapse;
       text-align: left;
     }
 
-    .mct-table th {
-      padding: 0.75rem 1rem;
+    .data-table th {
+      padding: 0.8rem 1rem;
       font-size: 0.7rem;
       font-weight: 800;
-      color: var(--text-muted);
+      color: #64748b;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
-      border-bottom: 1px solid var(--border-color);
+      letter-spacing: 0.6px;
+      border-bottom: 1px solid var(--border);
     }
 
-    .mct-table td {
-      padding: 0.7rem 1rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    .data-table td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.025);
       vertical-align: middle;
     }
 
-    .mct-table tr:last-child td { border-bottom: none; }
+    .data-table tr:hover td { background: rgba(255, 255, 255, 0.018); }
 
-    .mct-table tr:hover td {
-      background: rgba(255, 255, 255, 0.02);
-    }
-
-    .rank-num {
+    .rank-box {
       font-weight: 900;
       font-size: 0.85rem;
-      width: 28px;
-      height: 28px;
-      border-radius: 6px;
+      width: 30px;
+      height: 30px;
+      border-radius: 7px;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.04);
     }
 
-    .rank-1 { background: #f59e0b; color: #000; }
-    .rank-2 { background: #94a3b8; color: #000; }
-    .rank-3 { background: #d97706; color: #fff; }
+    .rank-1 { background: var(--t1); color: #000; }
+    .rank-2 { background: var(--t2); color: #000; }
+    .rank-3 { background: var(--t3); color: #fff; }
 
-    .player-cell {
+    .player-row-meta {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.8rem;
     }
 
-    .player-cell img {
-      width: 32px;
-      height: 32px;
+    .player-row-meta img {
+      width: 34px;
+      height: 34px;
       border-radius: 6px;
     }
 
-    .player-cell-name {
-      font-weight: 700;
-      font-size: 0.85rem;
-      color: #fff;
-    }
+    .player-row-name { font-weight: 800; font-size: 0.88rem; color: #fff; }
+    .player-row-pts { font-size: 0.72rem; color: #64748b; font-weight: 600; }
 
-    .player-cell-pts {
-      font-size: 0.7rem;
-      color: var(--text-muted);
-      font-weight: 600;
-    }
-
-    .region-pill {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--border-color);
-      padding: 0.2rem 0.5rem;
-      border-radius: 4px;
+    .region-tag {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      padding: 0.22rem 0.55rem;
+      border-radius: 5px;
       font-size: 0.7rem;
       font-weight: 800;
-      color: #34d399;
+      color: #4ade80;
     }
 
-    .tier-badges {
+    .chip-container {
       display: flex;
-      gap: 0.35rem;
+      gap: 0.4rem;
       flex-wrap: wrap;
     }
 
-    .chip-badge {
+    .mode-chip {
       background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      padding: 0.2rem 0.45rem;
-      border-radius: 4px;
-      font-size: 0.68rem;
+      border: 1px solid var(--border);
+      padding: 0.22rem 0.5rem;
+      border-radius: 6px;
+      font-size: 0.7rem;
       font-weight: 800;
       display: flex;
       align-items: center;
-      gap: 0.3rem;
+      gap: 0.35rem;
     }
 
-    .chip-badge img { width: 12px; height: 12px; }
+    .mode-chip img { width: 13px; height: 13px; }
   </style>
 </head>
 <body>
 
-  <!-- Top Navbar -->
-  <nav class="navbar">
-    <div class="navbar-container">
+  <nav class="nav-bar">
+    <div class="nav-container">
       <a href="#" class="brand">
-        <img src="logo.png" alt="Logo" class="brand-logo" onerror="this.src='https://mc-heads.net/avatar/MSTEVE/64'">
-        <span class="brand-text" id="guildSubTitle">Halo Tiers Network</span>
+        <img src="logo.png" class="brand-logo" alt="Logo" onerror="this.src='https://mc-heads.net/avatar/MSTEVE/64'">
+        <span class="brand-name" id="guildName">Halo Tiers Network</span>
       </a>
 
-      <div class="nav-links">
-        <button class="nav-tab active" onclick="switchView('overall', this)">
-          <i class="fa-solid fa-trophy" style="color: #f59e0b;"></i> OVERALL
+      <div class="nav-menu">
+        <button class="nav-btn active" onclick="switchView('overall', this)">
+          <i class="fa-solid fa-trophy" style="color: #fbbf24;"></i> OVERALL
         </button>
-        <button class="nav-tab" onclick="switchView('vanilla', this)">
+        <button class="nav-btn" onclick="switchView('vanilla', this)">
           <img src="https://solacetiers.com/static/tier_icons/vanilla.png" alt="Vanilla"> VANILLA
         </button>
-        <button class="nav-tab" onclick="switchView('sword', this)">
+        <button class="nav-btn" onclick="switchView('sword', this)">
           <img src="https://solacetiers.com/static/tier_icons/sword.png" alt="Sword"> SWORD
         </button>
-        <button class="nav-tab" onclick="switchView('pot', this)">
+        <button class="nav-btn" onclick="switchView('pot', this)">
           <img src="https://solacetiers.com/static/tier_icons/pot.png" alt="Pot"> POT
         </button>
-        <button class="nav-tab" onclick="switchView('uhc', this)">
+        <button class="nav-btn" onclick="switchView('uhc', this)">
           <img src="https://solacetiers.com/static/tier_icons/uhc.png" alt="UHC"> UHC
         </button>
-        <button class="nav-tab" onclick="switchView('nethpot', this)">
+        <button class="nav-btn" onclick="switchView('nethpot', this)">
           <img src="https://solacetiers.com/static/tier_icons/netherite.png" alt="Nethpot"> NETHPOT
         </button>
-        <button class="nav-tab" onclick="switchView('smp', this)">
+        <button class="nav-btn" onclick="switchView('smp', this)">
           <img src="https://solacetiers.com/static/tier_icons/smp.png" alt="SMP"> SMP
         </button>
-        <button class="nav-tab" onclick="switchView('axe', this)">
+        <button class="nav-btn" onclick="switchView('axe', this)">
           <img src="https://solacetiers.com/static/tier_icons/axe.png" alt="Axe"> AXE
         </button>
-        <button class="nav-tab" onclick="switchView('mace', this)">
+        <button class="nav-btn" onclick="switchView('mace', this)">
           <i class="fa-solid fa-hammer" style="color: #94a3b8;"></i> MACE
         </button>
       </div>
     </div>
   </nav>
 
-  <!-- Main Content Wrapper -->
-  <div class="main-container">
+  <div class="app-container">
 
-    <!-- Sub-header bar with titles and search -->
-    <div class="sub-toolbar">
-      <div class="page-info">
-        <div class="page-title" id="panelTitle">Overall Rankings</div>
-        <div class="badge-status" id="statusBadge">ONLINE</div>
+    <div class="control-panel">
+      <div class="title-group">
+        <div class="view-title" id="viewTitle">Overall Leaderboard</div>
+        <div class="status-pill" id="statusPill">ONLINE</div>
       </div>
 
-      <div class="search-box">
+      <div class="search-wrapper">
         <i class="fa-solid fa-magnifying-glass"></i>
         <input type="text" id="searchInput" class="search-input" placeholder="Search player..." oninput="handleSearch()">
       </div>
     </div>
 
-    <!-- Overall View -->
-    <div id="overallView" class="table-wrapper">
-      <table class="mct-table">
+    <div id="overallView" class="table-container">
+      <table class="data-table">
         <thead>
           <tr>
-            <th style="width: 40px;">#</th>
+            <th style="width: 45px;">#</th>
             <th>Player</th>
             <th>Region</th>
-            <th>Tiers</th>
+            <th>Tier Breakdowns</th>
           </tr>
         </thead>
         <tbody id="overallRows"></tbody>
       </table>
     </div>
 
-    <!-- Gamemode View (5 Columns) -->
-    <div id="gamemodeView" class="tier-grid" style="display: none;"></div>
+    <div id="gamemodeView" class="tier-columns" style="display: none;"></div>
 
   </div>
 
   <script>
+    // Configured with AllOrigins proxy
     const BOT_API_URL = 'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://halotiers.wispbyte.app/api/tiers');
+    
     let globalPlayerData = [];
     let currentMode = 'overall';
 
@@ -516,13 +489,13 @@
       return tiersList.reduce((sum, item) => sum + calculatePoints(item.tier), 0);
     }
 
-    async function fetchWispyByteData() {
+    async function fetchTierData() {
       try {
         const res = await fetch(BOT_API_URL);
         const json = await res.json();
 
         if (json.guild) {
-          document.getElementById('guildSubTitle').innerText = json.guild.toUpperCase();
+          document.getElementById('guildName').innerText = json.guild.toUpperCase();
         }
 
         const rawPlayers = json.players || json.data || json;
@@ -565,17 +538,15 @@
         renderCurrentView();
 
       } catch (err) {
-        console.error('API Error:', err);
-        const status = document.getElementById('statusBadge');
-        status.innerText = 'OFFLINE';
-        status.style.color = '#f87171';
-        status.style.borderColor = 'rgba(248, 113, 113, 0.3)';
-        status.style.background = 'rgba(248, 113, 113, 0.1)';
-        
+        console.error('API Load Error:', err);
+        const pill = document.getElementById('statusPill');
+        pill.innerText = 'OFFLINE';
+        pill.style.color = '#f87171';
+        pill.style.borderColor = 'rgba(248, 113, 113, 0.3)';
+        pill.style.background = 'rgba(248, 113, 113, 0.1)';
+
         document.getElementById('overallRows').innerHTML = `
-          <tr>
-            <td colspan="4" class="empty-msg">Unable to load rankings. Check API status.</td>
-          </tr>
+          <tr><td colspan="4" class="empty-state">Failed to fetch data via proxy. Please check backend.</td></tr>
         `;
       }
     }
@@ -590,7 +561,7 @@
       }
 
       if (filtered.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="4" class="empty-msg">No players found</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="4" class="empty-state">No matching players found</td></tr>`;
         return;
       }
 
@@ -599,7 +570,7 @@
         const rClass = rank === 1 ? 'rank-1' : rank === 2 ? 'rank-2' : rank === 3 ? 'rank-3' : '';
 
         let chipsHtml = player.tiersList.map(t => `
-          <div class="chip-badge">
+          <div class="mode-chip">
             <img src="https://solacetiers.com/static/tier_icons/${t.mode}.png" onerror="this.style.display='none'">
             <span>${t.tier}</span>
           </div>
@@ -607,18 +578,18 @@
 
         tbody.innerHTML += `
           <tr>
-            <td><div class="rank-num ${rClass}">${rank}</div></td>
+            <td><div class="rank-box ${rClass}">${rank}</div></td>
             <td>
-              <div class="player-cell">
+              <div class="player-row-meta">
                 <img class="pixelated" src="https://mc-heads.net/avatar/${player.name}/64" onerror="this.src='https://mc-heads.net/avatar/MSTEVE/64'">
                 <div>
-                  <div class="player-cell-name">${player.name}</div>
-                  <div class="player-cell-pts">${player.pts} pts</div>
+                  <div class="player-row-name">${player.name}</div>
+                  <div class="player-row-pts">${player.pts} points</div>
                 </div>
               </div>
             </td>
-            <td><span class="region-pill">${player.region}</span></td>
-            <td><div class="tier-badges">${chipsHtml}</div></td>
+            <td><span class="region-tag">${player.region}</span></td>
+            <td><div class="chip-container">${chipsHtml}</div></td>
           </tr>
         `;
       });
@@ -647,27 +618,27 @@
 
         let cardsHtml = '';
         if (colPlayers.length === 0) {
-          cardsHtml = `<div class="empty-msg">No Players</div>`;
+          cardsHtml = `<div class="empty-state">No Players</div>`;
         } else {
           colPlayers.forEach(player => {
             const isHT = player.tier.toUpperCase().startsWith('HT');
-            const tagClass = isHT ? 'tag-ht' : 'tag-lt';
+            const badgeClass = isHT ? 'badge-ht' : 'badge-lt';
 
             cardsHtml += `
               <div class="player-card">
-                <div class="player-info">
+                <div class="player-meta">
                   <img class="player-head pixelated" src="https://mc-heads.net/avatar/${player.name}/64" onerror="this.src='https://mc-heads.net/avatar/MSTEVE/64'">
                   <span class="player-name">${player.name}</span>
                 </div>
-                <span class="tier-tag ${tagClass}">${player.tier}</span>
+                <span class="tier-badge ${badgeClass}">${player.tier}</span>
               </div>
             `;
           });
         }
 
         grid.innerHTML += `
-          <div class="tier-column">
-            <div class="tier-header ${t.class}">${t.title}</div>
+          <div class="tier-col">
+            <div class="col-header ${t.class}">${t.title}</div>
             ${cardsHtml}
           </div>
         `;
@@ -675,13 +646,13 @@
     }
 
     function switchView(mode, tabElem) {
-      document.querySelectorAll('.nav-tab').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
       tabElem.classList.add('active');
 
       currentMode = mode;
       document.getElementById('searchInput').value = '';
-      
-      const title = document.getElementById('panelTitle');
+
+      const title = document.getElementById('viewTitle');
       const overall = document.getElementById('overallView');
       const gamemode = document.getElementById('gamemodeView');
 
@@ -690,7 +661,7 @@
         overall.style.display = 'block';
         gamemode.style.display = 'none';
       } else {
-        title.innerText = `${mode.toUpperCase()} Leaderboard`;
+        title.innerText = `${mode.toUpperCase()} Rankings`;
         overall.style.display = 'none';
         gamemode.style.display = 'grid';
       }
@@ -711,7 +682,7 @@
       renderCurrentView();
     }
 
-    fetchWispyByteData();
+    fetchTierData();
   </script>
 </body>
 </html>
