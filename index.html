@@ -3,111 +3,101 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Halo Tiers | Rankings</title>
+  <title>Halo Tiers Network | Tierlist & Rankings</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-color: #050507;
-      --card-bg: linear-gradient(180deg, #10121a 0%, #08090d 100%);
-      --card-border: rgba(255, 255, 255, 0.07);
-      --inner-bg: #0b0d13;
-      --text-main: #f8fafc;
-      --text-muted: #64748b;
-      --accent-purple: #8a2be2;
-
-      --t1-glow: rgba(234, 179, 8, 0.15);
-      --t2-glow: rgba(148, 163, 184, 0.15);
-      --t3-glow: rgba(217, 119, 6, 0.15);
-      --t4-glow: rgba(56, 189, 248, 0.1);
-      --t5-glow: rgba(129, 140, 248, 0.1);
+      --bg-dark: #08090c;
+      --bg-panel: #0e1117;
+      --bg-card: #151921;
+      --bg-card-hover: #1c222e;
+      --border-color: rgba(255, 255, 255, 0.08);
+      --border-accent: rgba(255, 255, 255, 0.15);
+      
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --accent-purple: #9333ea;
+      
+      --t1-color: #f59e0b;
+      --t2-color: #94a3b8;
+      --t3-color: #d97706;
+      --t4-color: #38bdf8;
+      --t5-color: #a855f7;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
 
     body {
-      background: var(--bg-color);
+      background: var(--bg-dark);
       color: var(--text-main);
       min-height: 100vh;
-      padding: 2.5rem 1.5rem;
-      display: flex;
-      justify-content: center;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 1250px;
-      display: flex;
-      flex-direction: column;
-      gap: 1.2rem;
-    }
-
-    .header-panel {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 16px;
-      padding: 2rem 1.5rem;
       display: flex;
       flex-direction: column;
       align-items: center;
-      text-align: center;
-      box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+      padding-bottom: 3rem;
     }
 
-    .logo-container {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      overflow: hidden;
-      border: 2px solid rgba(255, 255, 255, 0.15);
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.08);
-      margin-bottom: 0.8rem;
-      background: #000;
+    /* Pixelated avatar rendering (Fixes blurry Steve/Skin faces) */
+    .pixelated {
+      image-rendering: pixelated;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: crisp-edges;
     }
 
-    .logo-container img {
+    /* Navigation Bar */
+    .navbar {
       width: 100%;
-      height: 100%;
+      background: var(--bg-panel);
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .navbar-container {
+      width: 100%;
+      max-width: 1300px;
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      text-decoration: none;
+      color: #fff;
+    }
+
+    .brand-logo {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      border: 1px solid var(--border-accent);
       object-fit: cover;
     }
 
-    .header-sub { 
-      font-size: 0.7rem; 
-      font-weight: 800; 
-      letter-spacing: 2px; 
-      color: var(--text-muted); 
-      text-transform: uppercase; 
+    .brand-text {
+      font-weight: 900;
+      font-size: 1.1rem;
+      letter-spacing: -0.5px;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
-    .header-title { 
-      font-size: 2.2rem; 
-      font-weight: 900; 
-      margin-top: 0.2rem; 
-      letter-spacing: -0.5px; 
-      color: #ffffff;
-    }
-
-    .stat-pill {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--card-border);
-      border-radius: 20px;
-      padding: 0.4rem 1rem;
-      margin-top: 1rem;
-      font-size: 0.75rem;
-      font-weight: 800;
-      color: var(--text-muted);
-      letter-spacing: 0.5px;
-    }
-
-    .stat-pill span { color: #fff; font-weight: 900; }
-
-    .nav-panel {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 16px;
-      padding: 0.5rem 0.8rem;
+    .nav-links {
       display: flex;
-      justify-content: center;
-      gap: 0.4rem;
+      gap: 0.3rem;
       overflow-x: auto;
     }
 
@@ -115,190 +105,398 @@
       background: transparent;
       border: 1px solid transparent;
       color: var(--text-muted);
-      padding: 0.55rem 1.1rem;
-      border-radius: 10px;
-      font-weight: 800;
+      padding: 0.5rem 0.85rem;
+      border-radius: 8px;
+      font-weight: 700;
       font-size: 0.8rem;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      transition: all 0.2s ease;
-      text-transform: uppercase;
+      gap: 0.4rem;
+      transition: all 0.15s ease;
+      white-space: nowrap;
     }
 
     .nav-tab img { width: 16px; height: 16px; object-fit: contain; }
-    .nav-tab.active { background: rgba(255, 255, 255, 0.06); border-color: var(--card-border); color: #fff; }
-    .nav-tab:hover:not(.active) { color: #fff; background: rgba(255, 255, 255, 0.02); }
+    .nav-tab.active { background: rgba(255, 255, 255, 0.08); border-color: var(--border-accent); color: #fff; }
+    .nav-tab:hover:not(.active) { color: #fff; background: rgba(255, 255, 255, 0.04); }
 
-    .content-panel {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 16px;
-      padding: 1.8rem;
+    /* Main Container */
+    .main-container {
+      width: 100%;
+      max-width: 1300px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
     }
 
-    .panel-top {
+    /* Subheader & Stats Toolbar */
+    .sub-toolbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 1.5rem;
-      padding-bottom: 0.8rem;
-      border-bottom: 1px solid var(--card-border);
+      background: var(--bg-panel);
+      border: 1px solid var(--border-color);
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      flex-wrap: wrap;
+      gap: 1rem;
     }
 
-    .panel-title { font-size: 1.2rem; font-weight: 800; }
+    .page-info {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
 
-    .status-badge { 
-      background: rgba(138, 43, 226, 0.12); 
-      padding: 0.4rem 0.8rem; 
-      border-radius: 6px; 
-      font-weight: 800; 
-      font-size: 0.75rem; 
-      color: #a855f7;
-      border: 1px solid rgba(138, 43, 226, 0.3);
+    .page-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .badge-status {
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.25);
+      color: #4ade80;
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
       letter-spacing: 0.5px;
     }
 
-    .leaderboard-table { width: 100%; border-collapse: separate; border-spacing: 0 0.4rem; }
-    .leaderboard-table th { padding: 0.6rem 1rem; font-size: 0.7rem; text-transform: uppercase; color: var(--text-muted); font-weight: 800; text-align: left; }
+    .search-box {
+      position: relative;
+      width: 240px;
+    }
 
-    .lb-row { background: var(--inner-bg); border-radius: 8px; }
-    .lb-row td { padding: 0.8rem 1rem; vertical-align: middle; }
-    .lb-row td:first-child { border-top-left-radius: 8px; border-bottom-left-radius: 8px; }
-    .lb-row td:last-child { border-top-right-radius: 8px; border-bottom-right-radius: 8px; }
+    .search-box i {
+      position: absolute;
+      left: 0.8rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    .search-input {
+      width: 100%;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      padding: 0.45rem 0.8rem 0.45rem 2.2rem;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 600;
+      outline: none;
+      transition: border-color 0.15s ease;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent-purple);
+    }
+
+    /* Gamemode Tier Grid (5 Columns) */
+    .tier-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.75rem;
+    }
+
+    @media (max-width: 1024px) {
+      .tier-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .tier-grid { grid-template-columns: 1fr; }
+    }
+
+    .tier-column {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 0.6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      min-height: 500px;
+    }
+
+    .tier-header {
+      padding: 0.6rem;
+      border-radius: 6px;
+      font-weight: 800;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-color);
+    }
+
+    .tier-header.t1 { color: var(--t1-color); border-color: rgba(245, 158, 11, 0.3); background: rgba(245, 158, 11, 0.08); }
+    .tier-header.t2 { color: var(--t2-color); border-color: rgba(148, 163, 184, 0.3); background: rgba(148, 163, 184, 0.08); }
+    .tier-header.t3 { color: var(--t3-color); border-color: rgba(217, 119, 6, 0.3); background: rgba(217, 119, 6, 0.08); }
+    .tier-header.t4 { color: var(--t4-color); border-color: rgba(56, 189, 248, 0.3); background: rgba(56, 189, 248, 0.08); }
+    .tier-header.t5 { color: var(--t5-color); border-color: rgba(168, 85, 247, 0.3); background: rgba(168, 85, 247, 0.08); }
+
+    /* Player Cards inside Tier Columns */
+    .player-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 0.45rem 0.6rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.15s ease, transform 0.1s ease;
+    }
+
+    .player-card:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--border-accent);
+      transform: translateY(-1px);
+    }
+
+    .player-info {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      overflow: hidden;
+    }
+
+    .player-head {
+      width: 26px;
+      height: 26px;
+      border-radius: 4px;
+      background: #000;
+      flex-shrink: 0;
+    }
+
+    .player-name {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .tier-tag {
+      font-size: 0.7rem;
+      font-weight: 900;
+      padding: 0.15rem 0.35rem;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.05);
+      letter-spacing: -0.5px;
+    }
+
+    .tag-ht { color: #38bdf8; background: rgba(56, 189, 248, 0.12); }
+    .tag-lt { color: #94a3b8; background: rgba(148, 163, 184, 0.1); }
+
+    .empty-msg {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 2rem 0;
+    }
+
+    /* Overall Table View */
+    .table-wrapper {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1rem;
+      overflow-x: auto;
+    }
+
+    .mct-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    .mct-table th {
+      padding: 0.75rem 1rem;
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .mct-table td {
+      padding: 0.7rem 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+      vertical-align: middle;
+    }
+
+    .mct-table tr:last-child td { border-bottom: none; }
+
+    .mct-table tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
 
     .rank-num {
-      width: 34px; height: 34px; border-radius: 6px; display: flex; align-items: center; justify-content: center;
-      font-weight: 900; font-size: 1rem; background: rgba(255, 255, 255, 0.04); color: #fff;
+      font-weight: 900;
+      font-size: 0.85rem;
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.05);
     }
-    .rank-1 { background: #eab308; color: #000; }
+
+    .rank-1 { background: #f59e0b; color: #000; }
     .rank-2 { background: #94a3b8; color: #000; }
     .rank-3 { background: #d97706; color: #fff; }
 
-    .player-meta { display: flex; align-items: center; gap: 0.8rem; }
-    .player-avatar { width: 36px; height: 36px; border-radius: 6px; border: 1px solid var(--card-border); }
-    .player-name { font-weight: 800; font-size: 0.95rem; color: #fff; }
-    .player-pts { font-size: 0.75rem; color: var(--text-muted); font-weight: 600; }
-
-    .region-badge {
-      background: rgba(34, 197, 94, 0.12); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.25);
-      padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 800; font-size: 0.7rem;
+    .player-cell {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
     }
 
-    .tier-chips-grid { display: flex; gap: 0.4rem; align-items: center; }
-    .chip {
-      background: rgba(255, 255, 255, 0.03); border: 1px solid var(--card-border); border-radius: 6px;
-      padding: 0.3rem 0.5rem; display: flex; align-items: center; gap: 0.3rem; font-size: 0.7rem; font-weight: 800;
+    .player-cell img {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
     }
-    .chip img { width: 13px; height: 13px; }
-    .chip-empty { width: 28px; height: 28px; border-radius: 50%; border: 1px dashed rgba(255, 255, 255, 0.08); display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.7rem; }
 
-    .tier-columns-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.8rem; }
-    .tier-col { background: var(--inner-bg); border-radius: 12px; border: 1px solid var(--card-border); padding: 0.8rem; min-height: 400px; }
-
-    .col-header {
-      padding: 0.7rem; border-radius: 8px; text-align: center; font-weight: 900; font-size: 1rem;
-      margin-bottom: 0.8rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+    .player-cell-name {
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: #fff;
     }
-    .col-header img { width: 22px; height: 22px; }
 
-    .col-t1 { background: var(--t1-glow); color: #eab308; border: 1px solid #eab308; }
-    .col-t2 { background: var(--t2-glow); color: #94a3b8; border: 1px solid #94a3b8; }
-    .col-t3 { background: var(--t3-glow); color: #d97706; border: 1px solid #d97706; }
-    .col-t4 { background: var(--t4-glow); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); }
-    .col-t5 { background: var(--t5-glow); color: #818cf8; border: 1px solid rgba(129, 140, 248, 0.4); }
-
-    .player-card {
-      background: rgba(255, 255, 255, 0.02); border: 1px solid var(--card-border); border-radius: 6px;
-      padding: 0.5rem 0.7rem; display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.4rem;
+    .player-cell-pts {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      font-weight: 600;
     }
-    .player-card-left { display: flex; align-items: center; gap: 0.5rem; }
-    .player-card-left img { width: 24px; height: 24px; border-radius: 4px; }
-    .player-card-name { font-weight: 700; font-size: 0.8rem; max-width: 95px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-    .caret-box { font-weight: 900; font-size: 0.85rem; letter-spacing: -1px; }
-    .card-ht { border-left: 3px solid #38bdf8; }
-    .card-ht .caret-box { color: #38bdf8; }
-    .card-lt { border-left: 3px solid #64748b; opacity: 0.8; }
-    .card-lt .caret-box { color: #94a3b8; }
+    .region-pill {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: #34d399;
+    }
 
-    .empty-col-msg { text-align: center; color: var(--text-muted); font-size: 0.75rem; font-weight: 700; padding: 2rem 0; text-transform: uppercase; }
+    .tier-badges {
+      display: flex;
+      gap: 0.35rem;
+      flex-wrap: wrap;
+    }
+
+    .chip-badge {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      padding: 0.2rem 0.45rem;
+      border-radius: 4px;
+      font-size: 0.68rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .chip-badge img { width: 12px; height: 12px; }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <div class="header-panel">
-      <div class="logo-container">
-        <img src="logo.png" alt="Halo Tiers Logo" onerror="this.src='https://mc-heads.net/avatar/MSTEVE/80'">
-      </div>
-      <div class="header-sub" id="guildSubTitle">HALO TIERS NETWORK</div>
-      <div class="header-title">Overall Rankings</div>
+  <!-- Top Navbar -->
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="#" class="brand">
+        <img src="logo.png" alt="Logo" class="brand-logo" onerror="this.src='https://mc-heads.net/avatar/MSTEVE/64'">
+        <span class="brand-text" id="guildSubTitle">Halo Tiers Network</span>
+      </a>
 
-      <div class="stat-pill">
-        LISTED PLAYERS: <span id="playerCount">0</span>
+      <div class="nav-links">
+        <button class="nav-tab active" onclick="switchView('overall', this)">
+          <i class="fa-solid fa-trophy" style="color: #f59e0b;"></i> OVERALL
+        </button>
+        <button class="nav-tab" onclick="switchView('vanilla', this)">
+          <img src="https://solacetiers.com/static/tier_icons/vanilla.png" alt="Vanilla"> VANILLA
+        </button>
+        <button class="nav-tab" onclick="switchView('sword', this)">
+          <img src="https://solacetiers.com/static/tier_icons/sword.png" alt="Sword"> SWORD
+        </button>
+        <button class="nav-tab" onclick="switchView('pot', this)">
+          <img src="https://solacetiers.com/static/tier_icons/pot.png" alt="Pot"> POT
+        </button>
+        <button class="nav-tab" onclick="switchView('uhc', this)">
+          <img src="https://solacetiers.com/static/tier_icons/uhc.png" alt="UHC"> UHC
+        </button>
+        <button class="nav-tab" onclick="switchView('nethpot', this)">
+          <img src="https://solacetiers.com/static/tier_icons/netherite.png" alt="Nethpot"> NETHPOT
+        </button>
+        <button class="nav-tab" onclick="switchView('smp', this)">
+          <img src="https://solacetiers.com/static/tier_icons/smp.png" alt="SMP"> SMP
+        </button>
+        <button class="nav-tab" onclick="switchView('axe', this)">
+          <img src="https://solacetiers.com/static/tier_icons/axe.png" alt="Axe"> AXE
+        </button>
+        <button class="nav-tab" onclick="switchView('mace', this)">
+          <i class="fa-solid fa-hammer" style="color: #94a3b8;"></i> MACE
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content Wrapper -->
+  <div class="main-container">
+
+    <!-- Sub-header bar with titles and search -->
+    <div class="sub-toolbar">
+      <div class="page-info">
+        <div class="page-title" id="panelTitle">Overall Rankings</div>
+        <div class="badge-status" id="statusBadge">ONLINE</div>
+      </div>
+
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="searchInput" class="search-input" placeholder="Search player..." oninput="handleSearch()">
       </div>
     </div>
 
-    <div class="nav-panel">
-      <button class="nav-tab active" onclick="switchView('overall', this)">
-        <i class="fa-solid fa-trophy" style="color: #eab308;"></i> OVERALL
-      </button>
-      <button class="nav-tab" onclick="switchView('vanilla', this)">
-        <img src="https://solacetiers.com/static/tier_icons/vanilla.png" alt="Vanilla"> VANILLA
-      </button>
-      <button class="nav-tab" onclick="switchView('sword', this)">
-        <img src="https://solacetiers.com/static/tier_icons/sword.png" alt="Sword"> SWORD
-      </button>
-      <button class="nav-tab" onclick="switchView('pot', this)">
-        <img src="https://solacetiers.com/static/tier_icons/pot.png" alt="Pot"> POT
-      </button>
-      <button class="nav-tab" onclick="switchView('uhc', this)">
-        <img src="https://solacetiers.com/static/tier_icons/uhc.png" alt="UHC"> UHC
-      </button>
-      <button class="nav-tab" onclick="switchView('nethpot', this)">
-        <img src="https://solacetiers.com/static/tier_icons/netherite.png" alt="Nethpot"> NETHPOT
-      </button>
-      <button class="nav-tab" onclick="switchView('smp', this)">
-        <img src="https://solacetiers.com/static/tier_icons/smp.png" alt="SMP"> SMP
-      </button>
-      <button class="nav-tab" onclick="switchView('axe', this)">
-        <img src="https://solacetiers.com/static/tier_icons/axe.png" alt="Axe"> AXE
-      </button>
-      <button class="nav-tab" onclick="switchView('mace', this)">
-        <i class="fa-solid fa-hammer" style="color: #94a3b8;"></i> MACE
-      </button>
+    <!-- Overall View -->
+    <div id="overallView" class="table-wrapper">
+      <table class="mct-table">
+        <thead>
+          <tr>
+            <th style="width: 40px;">#</th>
+            <th>Player</th>
+            <th>Region</th>
+            <th>Tiers</th>
+          </tr>
+        </thead>
+        <tbody id="overallRows"></tbody>
+      </table>
     </div>
 
-    <div class="content-panel">
-      <div class="panel-top">
-        <div class="panel-title" id="panelTitle">Top 100 overall players</div>
-        <div class="status-badge" id="statusBadge">STATUS: ONLINE</div>
-      </div>
+    <!-- Gamemode View (5 Columns) -->
+    <div id="gamemodeView" class="tier-grid" style="display: none;"></div>
 
-      <div id="overallView">
-        <table class="leaderboard-table">
-          <thead>
-            <tr>
-              <th style="width: 40px;">#</th>
-              <th>PLAYER</th>
-              <th>REGION</th>
-              <th>TIERS</th>
-            </tr>
-          </thead>
-          <tbody id="overallRows"></tbody>
-        </table>
-      </div>
-
-      <div id="gamemodeView" class="tier-columns-grid" style="display: none;"></div>
-    </div>
   </div>
 
   <script>
-    // Pointing to your Express Bot API endpoint
     const BOT_API_URL = 'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://halotiers.wispbyte.app/api/tiers');
     let globalPlayerData = [];
+    let currentMode = 'overall';
 
     const POINT_VALUES = {
       'HT1': 60, 'LT1': 45,
@@ -310,8 +508,7 @@
 
     function calculatePoints(tierString) {
       if (!tierString) return 0;
-      const formattedTier = tierString.trim().toUpperCase();
-      return POINT_VALUES[formattedTier] || 0;
+      return POINT_VALUES[tierString.trim().toUpperCase()] || 0;
     }
 
     function calculateTotalPoints(tiersList) {
@@ -328,7 +525,6 @@
           document.getElementById('guildSubTitle').innerText = json.guild.toUpperCase();
         }
 
-        // Support both { players: [...] } from Express and raw object format
         const rawPlayers = json.players || json.data || json;
 
         if (Array.isArray(rawPlayers)) {
@@ -366,121 +562,112 @@
         }
 
         globalPlayerData.sort((a, b) => b.pts - a.pts);
+        renderCurrentView();
 
-        document.getElementById('playerCount').innerText = globalPlayerData.length.toLocaleString();
-        renderOverall();
       } catch (err) {
         console.error('API Error:', err);
-        document.getElementById('statusBadge').innerText = 'STATUS: OFFLINE';
-        document.getElementById('statusBadge').style.color = '#f38ba8';
+        const status = document.getElementById('statusBadge');
+        status.innerText = 'OFFLINE';
+        status.style.color = '#f87171';
+        status.style.borderColor = 'rgba(248, 113, 113, 0.3)';
+        status.style.background = 'rgba(248, 113, 113, 0.1)';
+        
         document.getElementById('overallRows').innerHTML = `
           <tr>
-            <td colspan="4" style="text-align:center; padding: 2.5rem; color: var(--text-muted); font-weight: 700;">
-              No player data available. Connect your Discord bot to sync data.
-            </td>
+            <td colspan="4" class="empty-msg">Unable to load rankings. Check API status.</td>
           </tr>
         `;
       }
     }
 
-    function renderOverall() {
+    function renderOverall(filterQuery = '') {
       const tbody = document.getElementById('overallRows');
       tbody.innerHTML = '';
 
-      if (globalPlayerData.length === 0) {
-        tbody.innerHTML = `
-          <tr>
-            <td colspan="4" style="text-align:center; padding: 2.5rem; color: var(--text-muted); font-weight: 700;">
-              No player data available.
-            </td>
-          </tr>
-        `;
+      let filtered = globalPlayerData;
+      if (filterQuery) {
+        filtered = filtered.filter(p => p.name.toLowerCase().includes(filterQuery.toLowerCase()));
+      }
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="4" class="empty-msg">No players found</td></tr>`;
         return;
       }
 
-      const top100 = globalPlayerData.slice(0, 100);
-
-      top100.forEach((player, idx) => {
+      filtered.slice(0, 100).forEach((player, idx) => {
         const rank = idx + 1;
         const rClass = rank === 1 ? 'rank-1' : rank === 2 ? 'rank-2' : rank === 3 ? 'rank-3' : '';
 
         let chipsHtml = player.tiersList.map(t => `
-          <div class="chip">
+          <div class="chip-badge">
             <img src="https://solacetiers.com/static/tier_icons/${t.mode}.png" onerror="this.style.display='none'">
             <span>${t.tier}</span>
           </div>
         `).join('');
 
-        if (player.tiersList.length < 7) {
-          chipsHtml += '<div class="chip-empty">-</div>'.repeat(7 - player.tiersList.length);
-        }
-
         tbody.innerHTML += `
-          <tr class="lb-row">
+          <tr>
             <td><div class="rank-num ${rClass}">${rank}</div></td>
             <td>
-              <div class="player-meta">
-                <img src="https://mc-heads.net/avatar/${player.name}/36" class="player-avatar" onerror="this.src='https://mc-heads.net/avatar/MSTEVE/36'">
+              <div class="player-cell">
+                <img class="pixelated" src="https://mc-heads.net/avatar/${player.name}/64" onerror="this.src='https://mc-heads.net/avatar/MSTEVE/64'">
                 <div>
-                  <div class="player-name">${player.name}</div>
-                  <div class="player-pts">• ${player.pts} points</div>
+                  <div class="player-cell-name">${player.name}</div>
+                  <div class="player-cell-pts">${player.pts} pts</div>
                 </div>
               </div>
             </td>
-            <td><span class="region-badge">${player.region}</span></td>
-            <td><div class="tier-chips-grid">${chipsHtml}</div></td>
+            <td><span class="region-pill">${player.region}</span></td>
+            <td><div class="tier-badges">${chipsHtml}</div></td>
           </tr>
         `;
       });
     }
 
-    function renderGamemodeColumns(modeName) {
+    function renderGamemodeColumns(modeName, filterQuery = '') {
       const grid = document.getElementById('gamemodeView');
       grid.innerHTML = '';
 
       const tierHeaders = [
-        { title: 'Tier 1', class: 'col-t1', icon: 'https://solacetiers.com/static/icons/tier_1.png' },
-        { title: 'Tier 2', class: 'col-t2', icon: 'https://solacetiers.com/static/icons/tier_2.png' },
-        { title: 'Tier 3', class: 'col-t3', icon: 'https://solacetiers.com/static/icons/tier_3.png' },
-        { title: 'Tier 4', class: 'col-t4', icon: null },
-        { title: 'Tier 5', class: 'col-t5', icon: null }
+        { title: 'Tier 1', class: 't1' },
+        { title: 'Tier 2', class: 't2' },
+        { title: 'Tier 3', class: 't3' },
+        { title: 'Tier 4', class: 't4' },
+        { title: 'Tier 5', class: 't5' }
       ];
 
-      const modePlayers = globalPlayerData.filter(p => p.mode.toLowerCase() === modeName.toLowerCase());
+      let modePlayers = globalPlayerData.filter(p => p.mode.toLowerCase() === modeName.toLowerCase());
+      if (filterQuery) {
+        modePlayers = modePlayers.filter(p => p.name.toLowerCase().includes(filterQuery.toLowerCase()));
+      }
 
       tierHeaders.forEach((t, idx) => {
         const colNum = idx + 1;
-        let iconMarkup = t.icon ? `<img src="${t.icon}" alt="T${colNum}">` : '';
-
         const colPlayers = modePlayers.filter(p => p.tier.includes(colNum.toString()));
 
         let cardsHtml = '';
         if (colPlayers.length === 0) {
-          cardsHtml = `<div class="empty-col-msg">No Players</div>`;
+          cardsHtml = `<div class="empty-msg">No Players</div>`;
         } else {
           colPlayers.forEach(player => {
-            const isHT = player.tier.toUpperCase().startsWith('HT'); 
-            const caretSymbol = isHT ? '^^' : '^';
-            const cardStyleClass = isHT ? 'card-ht' : 'card-lt';
+            const isHT = player.tier.toUpperCase().startsWith('HT');
+            const tagClass = isHT ? 'tag-ht' : 'tag-lt';
 
             cardsHtml += `
-              <div class="player-card ${cardStyleClass}">
-                <div class="player-card-left">
-                  <img src="https://mc-heads.net/avatar/${player.name}/24" onerror="this.src='https://mc-heads.net/avatar/MSTEVE/24'">
-                  <span class="player-card-name">${player.name}</span>
+              <div class="player-card">
+                <div class="player-info">
+                  <img class="player-head pixelated" src="https://mc-heads.net/avatar/${player.name}/64" onerror="this.src='https://mc-heads.net/avatar/MSTEVE/64'">
+                  <span class="player-name">${player.name}</span>
                 </div>
-                <div class="caret-box">${caretSymbol}</div>
+                <span class="tier-tag ${tagClass}">${player.tier}</span>
               </div>
             `;
           });
         }
 
         grid.innerHTML += `
-          <div class="tier-col">
-            <div class="col-header ${t.class}">
-              ${iconMarkup}
-              <span>${t.title}</span>
-            </div>
+          <div class="tier-column">
+            <div class="tier-header ${t.class}">${t.title}</div>
             ${cardsHtml}
           </div>
         `;
@@ -491,21 +678,37 @@
       document.querySelectorAll('.nav-tab').forEach(btn => btn.classList.remove('active'));
       tabElem.classList.add('active');
 
+      currentMode = mode;
+      document.getElementById('searchInput').value = '';
+      
       const title = document.getElementById('panelTitle');
       const overall = document.getElementById('overallView');
       const gamemode = document.getElementById('gamemodeView');
 
       if (mode === 'overall') {
-        title.innerText = 'Top 100 overall players';
+        title.innerText = 'Overall Leaderboard';
         overall.style.display = 'block';
         gamemode.style.display = 'none';
-        renderOverall();
       } else {
-        title.innerText = `${mode.toUpperCase()} Tiers Leaderboard`;
+        title.innerText = `${mode.toUpperCase()} Leaderboard`;
         overall.style.display = 'none';
         gamemode.style.display = 'grid';
-        renderGamemodeColumns(mode);
       }
+
+      renderCurrentView();
+    }
+
+    function renderCurrentView() {
+      const query = document.getElementById('searchInput').value.trim();
+      if (currentMode === 'overall') {
+        renderOverall(query);
+      } else {
+        renderGamemodeColumns(currentMode, query);
+      }
+    }
+
+    function handleSearch() {
+      renderCurrentView();
     }
 
     fetchWispyByteData();
